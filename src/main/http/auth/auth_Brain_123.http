@@ -1,0 +1,5 @@
+GET http://localhost:8080/myapp/api/auth?username=Brain&password=123
+Accept: */*
+Cache-Control: no-cache
+
+###

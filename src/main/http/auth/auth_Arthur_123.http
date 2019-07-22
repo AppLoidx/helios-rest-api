@@ -1,0 +1,4 @@
+GET http://localhost:8080/myapp/api/auth?username=Arthur2&password=123
+Cache-Control: no-cache
+
+###
