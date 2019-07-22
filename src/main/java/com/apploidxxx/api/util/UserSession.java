@@ -9,13 +9,12 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arthur Kupriyanov
  */
-public class UserSession {
+class UserSession {
 
 
     public static User getUser(String sessionId){
         SessionService ss = new SessionService();
         Session userSession = ss.findSession(sessionId);
-        User user;
         if (userSession==null){
             return null;
         } else {
