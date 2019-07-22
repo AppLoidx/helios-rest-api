@@ -50,7 +50,7 @@ public class ChatApi {
     @Path("/{queueName}")
     public Response addMessage(@PathParam("queueName") String queueName,
                              @Valid@NotNull @QueryParam("message") String message,
-                             @Valid@NotNull@QueryParam("token") String token){
+                             @Valid@NotNull@QueryParam("access_token") String token){
 
         User user;
         Queue q;

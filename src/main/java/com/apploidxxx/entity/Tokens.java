@@ -12,7 +12,7 @@ import javax.json.bind.annotation.JsonbTransient;
 public class Tokens {
 
     @JsonAlias("token")
-    @JsonbProperty("token")
+    @JsonbProperty("access_token")
     public final String token;
 
     @JsonAlias("refresh_token")
