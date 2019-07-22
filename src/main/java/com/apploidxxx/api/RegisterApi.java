@@ -25,10 +25,13 @@ public class RegisterApi {
         UserService us = new UserService();
         if (us.findByName(username)==null){
             us.saveUser(new User(username, password, firstName, lastName, email));
-            return Response.status(200).build();
+            return Response.ok().build();
         }
         else {
-            return Response.status(400).build();
+            return Response
+                    .status(400)
+                    .entity("This username already is taken")
+                    .build();
         }
     }
 }
