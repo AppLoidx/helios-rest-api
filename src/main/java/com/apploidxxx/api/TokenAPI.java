@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 /**
  * @author Arthur Kupriyanov
  */
-public class TokenRefresh {
+public class TokenAPI {
     public static Tokens generateToken(@Valid@NotNull@QueryParam("login") String login,
                                        @Valid@NotNull@QueryParam("password") String password){
         return new Tokens("123123", "ccqweFs2", new User());
