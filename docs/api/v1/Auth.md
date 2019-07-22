@@ -14,8 +14,8 @@
 
    **Required:**
  
-   `login=[string]`
-   `password=[string]`
+   * `login=[string]`
+   * `password=[string]`
 
 
 * **Success Response:**
