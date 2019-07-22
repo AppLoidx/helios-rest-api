@@ -23,7 +23,7 @@ public class RegisterVerificationApi {
      * @return {@link Response}
      */
     @GET
-    public Object verifyUser(@Valid @NotNull @QueryParam("id") long id,
+    public Response verifyUser(@Valid @NotNull @QueryParam("id") long id,
                              @Valid @NotNull @QueryParam("pin") int pin){
 
         // TODO: write verify business method

@@ -1,5 +1,6 @@
 package com.apploidxxx.api;
 
+import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.user.UserService;
 
@@ -29,8 +30,8 @@ public class RegisterApi {
         }
         else {
             return Response
-                    .status(400)
-                    .entity("This username already is taken")
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(new ErrorMessage("invalid_username","This username already is taken"))
                     .build();
         }
     }

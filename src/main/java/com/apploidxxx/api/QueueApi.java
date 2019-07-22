@@ -1,7 +1,9 @@
 package com.apploidxxx.api;
 
-import com.apploidxxx.api.util.UserSession;
-import com.apploidxxx.entity.Queue;
+import com.apploidxxx.api.exceptions.InvalidQueueException;
+import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.util.QueueManager;
+import com.apploidxxx.api.util.UserSessionManager;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.dao.user.UserService;
@@ -21,21 +23,25 @@ public class QueueApi {
 
 
     @GET
-    public Object getQueue(@Valid@NotNull@QueryParam("queueName") String queueName){
+    public Response getQueue(@Valid@NotNull@QueryParam("queueName") String queueName){
 
-        QueueService qs = new QueueService();
-        Queue q = qs.findQueue(queueName);
-        if (q == null) return Response.status(Response.Status.BAD_REQUEST).build();
-        else return q;
+        try {
+            return Response.ok(QueueManager.getQueue(queueName)).build();
+        } catch (InvalidQueueException e) {
+            return e.getResponse();
+        }
     }
 
     @PUT
-    public Object joinQueue(@NotNull@QueryParam("queueName") String queueName,
-                            @QueryParam("session") String session){
+    public Response joinQueue(@NotNull@QueryParam("queueName") String queueName,
+                            @QueryParam("token") String token){
 
-        User user = UserSession.getUser(session);
-        if (user == null) return Response.status(Response.Status.BAD_REQUEST).build();
-
+        User user;
+        try {
+            user = UserSessionManager.getUser(token);
+        } catch (InvalidTokenException e) {
+            return e.getResponse();
+        }
         QueueService qs = new QueueService();
         com.apploidxxx.entity.Queue q = qs.findQueue(queueName);
         if (q==null){
@@ -48,18 +54,23 @@ public class QueueApi {
             qs.updateQueue(q);
             new UserService().updateUser(user);
 
-            return Response.ok();
+            return Response.ok().build();
         }
 
     }
 
     @POST
-    public Object createQueue(@Valid@NotNull@QueryParam("queueName") String queueName,
-                              @Valid@NotNull@QueryParam("session") String session,
+    public Response createQueue(@Valid@NotNull@QueryParam("queueName") String queueName,
+                              @Valid@NotNull@QueryParam("token") String token,
                               @QueryParam("fullname") String fullname){
 
-        User user = UserSession.getUser(session);
-        if (user == null) return Response.status(Response.Status.BAD_REQUEST).build();
+        User user;
+        try {
+            user = UserSessionManager.getUser(token);
+        } catch (InvalidTokenException e) {
+            return e.getResponse();
+        }
+
         QueueService qs = new QueueService();
 
         com.apploidxxx.entity.Queue q = new com.apploidxxx.entity.Queue(queueName, fullname==null?queueName:fullname);
@@ -68,7 +79,10 @@ public class QueueApi {
             qs.saveQueue(q);
             return Response.ok().build();
         }catch (Exception e){
-            return "{status: 400, message: " + e.getMessage() +"}";
+            return Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(e.getMessage())
+                    .build();
         }
     }
 
@@ -76,11 +90,14 @@ public class QueueApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteQueue(@NotNull@QueryParam("queueName") String queueName,
                               @Valid@QueryParam("user_name") String userName,
-                              @Valid@QueryParam("session") String session){
+                              @Valid@QueryParam("token") String token){
 
-        User user = UserSession.getUser(session);
-        if (user == null) return Response.status(Response.Status.BAD_REQUEST).build();
-
+        User user;
+        try {
+            user = UserSessionManager.getUser(token);
+        } catch (InvalidTokenException e) {
+            return e.getResponse();
+        }
         if (userName!=null){
             return deleteUser(userName, queueName, user);
         } else {

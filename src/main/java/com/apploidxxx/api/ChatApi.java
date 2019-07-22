@@ -1,6 +1,9 @@
 package com.apploidxxx.api;
 
-import com.apploidxxx.api.util.UserSession;
+import com.apploidxxx.api.exceptions.InvalidQueueException;
+import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.util.QueueManager;
+import com.apploidxxx.api.util.UserSessionManager;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.Message;
 import com.apploidxxx.entity.Queue;
@@ -24,7 +27,7 @@ import java.util.Set;
 public class ChatApi {
     @GET
     @Path("/{queueName}")
-    public Set<Message> getMessages(@PathParam("queueName") String queueName,
+    public Response getMessages(@PathParam("queueName") String queueName,
                                     @Valid@NotNull@QueryParam("lastMsgId") int lastMsgId){
         QueueService qs = new QueueService();
         Queue queue  = qs.findQueue(queueName);
@@ -40,28 +43,31 @@ public class ChatApi {
             }
         }
 
-        return response;
+        return Response.ok(response).build();
     }
 
     @PUT
     @Path("/{queueName}")
-    public Object addMessage(@PathParam("queueName") String queueName,
+    public Response addMessage(@PathParam("queueName") String queueName,
                              @Valid@NotNull @QueryParam("message") String message,
-                             @Valid@NotNull@QueryParam("session") String session){
+                             @Valid@NotNull@QueryParam("token") String token){
 
-            User user = UserSession.getUser(session);
-            if (user == null) return Response.status(Response.Status.BAD_REQUEST).build();
+        User user;
+        Queue q;
 
-            QueueService qs = new QueueService();
-            Queue q = qs.findQueue(queueName);
-            if (q==null){
-                return Response.status(Response.Status.NOT_FOUND).entity("Queue not found").build();
-            } else {
-                Chat chat = q.getChat();
-                if (message.equals("")) return Response.status(Response.Status.BAD_REQUEST).entity("invalid message");
-                chat.newMessage(user, message);
-                new ChatService().updateChat(chat);
-                return Response.ok().build();
-            }
+        try { user = UserSessionManager.getUser(token); } catch (InvalidTokenException e) { return e.getResponse(); }
+        try { q = QueueManager.getQueue(queueName); } catch (InvalidQueueException e) { return e.getResponse(); }
+
+        Chat chat = q.getChat();
+        if (message.equals(""))
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity("invalid message")
+                    .build();
+
+        chat.newMessage(user, message);
+        new ChatService().updateChat(chat);
+        return Response.ok().build();
+
     }
 }

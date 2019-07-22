@@ -1,13 +1,11 @@
 package com.apploidxxx.api;
 
+import com.apploidxxx.api.exceptions.InvalidTokenException;
 import com.apploidxxx.api.util.UserInfo;
-import com.apploidxxx.entity.Session;
-import com.apploidxxx.entity.dao.user.SessionService;
+import com.apploidxxx.api.util.UserSessionManager;
+import com.apploidxxx.entity.User;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -18,15 +16,16 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserApi {
     @GET
-    public Object getInfo(@QueryParam("session") String sessionId){
+    public Response getInfo(@QueryParam("token") String token,
+                            @HeaderParam("Authorization") String authorization){
 
-        SessionService ss = new SessionService();
-        Session userSession = ss.findSession(sessionId);
-
-        if (userSession==null){
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        } else {
-            return new UserInfo( userSession.getUser());
+        User user ;
+        try {
+            user = UserSessionManager.getUser(token);
+        } catch (InvalidTokenException e) {
+            return e.getResponse();
         }
+        return Response.ok(new UserInfo( user)).build();
+
     }
 }
