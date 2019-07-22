@@ -13,8 +13,8 @@ import java.util.Set;
  * @author Arthur Kupriyanov
  */
 public class UserInfo implements Serializable {
-    private final User user;
-    private final List<String[]> queues;
+    private  User user;
+    private  List<String[]> queues;
 
     public UserInfo(User user){
         this.user = user;
