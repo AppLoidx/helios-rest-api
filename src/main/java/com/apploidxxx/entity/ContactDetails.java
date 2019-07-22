@@ -1,5 +1,7 @@
 package com.apploidxxx.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
@@ -20,10 +22,13 @@ public class ContactDetails {
         this.email = email;
     }
 
+    @JsonIgnore
+    @JsonbTransient
     @Id
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @JsonbTransient
     @OneToOne
     private User user;

@@ -2,6 +2,7 @@ package com.apploidxxx.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,14 +37,17 @@ public class User {
 
     @ManyToMany(mappedBy = "superUsers", fetch = FetchType.EAGER)
     @JsonIgnore
+    @JsonbTransient
     private Set<Queue> queueSuper;
 
 
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
     @JsonIgnore
+    @JsonbTransient
     private Set<Queue> queueMember;
 
     @JsonIgnore
+    @JsonbTransient
     @OneToOne(cascade = CascadeType.ALL)
     private Session session;
 
@@ -56,6 +60,7 @@ public class User {
 
     @Column(name = "password", nullable = false)
     @JsonIgnore
+    @JsonbTransient
     private String password;
 
     @Column(name = "firstName", nullable = false)
