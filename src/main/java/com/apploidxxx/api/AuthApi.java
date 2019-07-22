@@ -1,7 +1,8 @@
 package com.apploidxxx.api;
 
-import com.apploidxxx.api.util.PasswordChecker;
+import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.entity.Session;
+import com.apploidxxx.entity.Tokens;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.user.SessionService;
 import com.apploidxxx.entity.dao.user.UserService;
@@ -18,14 +19,14 @@ import javax.ws.rs.core.Response;
  * @author Arthur Kupriyanov
  */
 @Path("/api/auth")
-public class Auth {
+public class AuthApi {
     @Produces(MediaType.APPLICATION_JSON)
     @GET
     public Response authorize(  @NotNull @QueryParam("username") String username,
                                 @NotNull @QueryParam("password") String password){
             UserService service = new UserService();
             User user = service.findByName(username);
-            if (user!=null && PasswordChecker.checkEquals(password, user.getPassword())) {
+            if (user!=null && password.equals(user.getPassword())) {
                 SessionService ss = new SessionService();
 
                 Session s;
@@ -39,9 +40,14 @@ public class Auth {
                     new UserService().updateUser(user);
                     ss.saveSession(s);
                 }
-                return Response.ok().entity(s.getSessionId()).build();
+                return Response
+                        .ok(new Tokens(s.getToken(), "refresh-token", user))
+                        .build();
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).build();
+                return Response
+                        .status(Response.Status.BAD_REQUEST)
+                        .entity(new ErrorMessage("invalid_credentials", "invalid username or password"))
+                        .build();
             }
     }
 }
