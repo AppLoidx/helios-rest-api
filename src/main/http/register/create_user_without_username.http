@@ -1,0 +1,5 @@
+POST http://localhost:8080/mavenserver_war/api/register?password=123&firstName=Kulbako&lastName=Artemyi&email=kulba@gmail.com
+Accept: */*
+Cache-Control: no-cache
+
+###

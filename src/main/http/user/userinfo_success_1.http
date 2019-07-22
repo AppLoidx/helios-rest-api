@@ -1,0 +1,6 @@
+GET http://localhost:8080/myapp/api/user?sessionId=123123123123
+Accept: */*
+Cache-Control: no-cache
+
+###
+

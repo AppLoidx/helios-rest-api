@@ -1,0 +1,5 @@
+POST https://services.ifmo.ru:8444/cas/login?service=https%3A%2F%2Fservices.ifmo.ru%3A8444%2Fcas%2Foauth2.0%2FcallbackAuthorize%3Fclient_name%3DCasOAuthClient%26client_id%3Dbk3eBvkNaBPYaNqKsBxnRUnHGSmbyesVvPguPAsghZNc24nQpu7TNcVUJMGmh78T%26redirect_uri%3Dhttps%3A%2F%2Fservices.ifmo.ru%3A3001%2Foauth2callback
+Accept: */*
+Cache-Control: no-cache
+
+###

@@ -1,0 +1,5 @@
+POST http://localhost:8080/myapp/api/register?username=Arthur&password=123&firstName=Arthur&lastName=Kupriyanov
+Accept: */*
+Cache-Control: no-cache
+
+###
