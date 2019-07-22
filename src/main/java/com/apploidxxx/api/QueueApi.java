@@ -23,7 +23,7 @@ public class QueueApi {
 
 
     @GET
-    public Response getQueue(@Valid@NotNull@QueryParam("queueName") String queueName){
+    public Response getQueue(@Valid@NotNull@QueryParam("queue_name") String queueName){
 
         try {
             return Response.ok(QueueManager.getQueue(queueName)).build();
@@ -33,8 +33,8 @@ public class QueueApi {
     }
 
     @PUT
-    public Response joinQueue(@NotNull@QueryParam("queueName") String queueName,
-                            @QueryParam("access_token") String token){
+    public Response joinQueue(@NotNull@QueryParam("queue_name") String queueName,
+                            @NotNull@QueryParam("access_token") String token){
 
         User user;
         try {
@@ -60,9 +60,9 @@ public class QueueApi {
     }
 
     @POST
-    public Response createQueue(@Valid@NotNull@QueryParam("queueName") String queueName,
+    public Response createQueue(@Valid@NotNull@QueryParam("queue_name") String queueName,
                               @Valid@NotNull@QueryParam("access_token") String token,
-                              @QueryParam("fullname") String fullname){
+                              @Valid@NotNull@QueryParam("fullname") String fullname){
 
         User user;
         try {
@@ -88,7 +88,7 @@ public class QueueApi {
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteQueue(@NotNull@QueryParam("queueName") String queueName,
+    public Response deleteQueue(@NotNull@QueryParam("queue_name") String queueName,
                               @Valid@QueryParam("user_name") String userName,
                               @Valid@QueryParam("access_token") String token){
 
