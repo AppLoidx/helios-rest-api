@@ -19,8 +19,8 @@ public class RegisterApi {
     @POST
     public Response register(@Valid@NotNull@QueryParam("username") String username,
                              @Valid@NotNull@QueryParam("password") String password,
-                             @Valid@NotNull@QueryParam("firstName") String firstName,
-                             @Valid@NotNull@QueryParam("lastName") String lastName,
+                             @Valid@NotNull@QueryParam("first_name") String firstName,
+                             @Valid@NotNull@QueryParam("last_name") String lastName,
                              @Valid@NotNull@QueryParam("email") String email){
 
         UserService us = new UserService();
