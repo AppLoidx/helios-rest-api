@@ -1,4 +1,4 @@
-GET http://localhost:8080/myapp/api/user?sessionId=123123123123
+GET http://localhost:8080/myapp/api/user?session=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQ0MDk=
 Accept: */*
 Cache-Control: no-cache
 
