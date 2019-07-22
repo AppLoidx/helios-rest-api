@@ -17,7 +17,7 @@ public class Session {
     long id;
 
     @Column
-    private String sessionId;
+    private String token;
 
     @OneToOne
     private User user;
@@ -26,12 +26,12 @@ public class Session {
         return id;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public String getToken() {
+        return token;
     }
 
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public User getUser() {
@@ -46,7 +46,7 @@ public class Session {
         user.setSession(this);
         this.user = user;
         int randomNumber = (int) (Math.random() * 1520);
-        sessionId = Base64.getEncoder().encodeToString(
+        token = Base64.getEncoder().encodeToString(
                 (user.getUsername()
                         + user.getLastName() +
                         PasswordChecker.hashPassword(user.getPassword()) + "salt" + randomNumber).getBytes());
