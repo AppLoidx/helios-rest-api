@@ -16,8 +16,7 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserApi {
     @GET
-    public Response getInfo(@QueryParam("access_token") String token,
-                            @HeaderParam("Authorization") String authorization){
+    public Response getInfo(@QueryParam("access_token") String token){
 
         User user ;
         try {
