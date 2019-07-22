@@ -2,16 +2,14 @@ package com.apploidxxx.api;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author Arthur Kupriyanov
  */
-public class AuthTest {
+public class AuthApiTest {
 
     @Test
     public void authorize() {
-        Auth auth = new Auth();
+        AuthApi auth = new AuthApi();
         System.out.println(auth.authorize("Arthur2", "123"));
     }
 }
