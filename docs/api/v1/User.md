@@ -2,7 +2,7 @@
 ----
   Получение данных о пользователе. Возвращает сущности [User](../../../src/main/java/com/apploidxxx/entity/User.java) и 
   [ContactDetails](../../../src/main/java/com/apploidxxx/entity/ContactDetails.java)
-  >
+
 
 * **URL**
 
