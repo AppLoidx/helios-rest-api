@@ -1,0 +1,6 @@
+PUT http://localhost:8080/myapp/api/queue?access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
+Accept: application/json
+Cache-Control: no-cache
+
+###
+

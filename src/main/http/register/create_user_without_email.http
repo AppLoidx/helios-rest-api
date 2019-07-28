@@ -1,5 +1,5 @@
 POST http://localhost:8080/myapp/api/register?username=sfdgdgsfs&password=123&firstName=Arthur&lastName=Kupriyanov
-Accept: */*
+Accept: application/json
 Cache-Control: no-cache
 
 ###

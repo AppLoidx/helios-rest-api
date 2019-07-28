@@ -1,1 +1,3 @@
 PASSWORD_CONF.properties
+sendgrid.env
+.idea

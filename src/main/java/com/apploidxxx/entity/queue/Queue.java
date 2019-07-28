@@ -1,6 +1,8 @@
-package com.apploidxxx.entity;
+package com.apploidxxx.entity.queue;
 
 
+import com.apploidxxx.entity.Chat;
+import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
 
 import javax.persistence.*;
@@ -29,6 +31,9 @@ public class Queue {
     @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date creationDate;
+
+    @Column
+    private GenerationType generationType;
 
     @Column
     private String password;
@@ -212,5 +217,17 @@ public class Queue {
                 ", members=" + members +
                 ", superUsers=" + superUsers +
                 '}';
+    }
+
+    public void setGenerationType(GenerationType generationType) {
+        this.generationType = generationType;
+    }
+
+    public void setGenerationType(String type){
+        this.generationType = GenerationType.getType(type);
+    }
+
+    public GenerationType getGenerationType() {
+        return generationType;
     }
 }

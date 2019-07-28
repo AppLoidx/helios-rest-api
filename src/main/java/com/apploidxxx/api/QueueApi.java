@@ -2,11 +2,13 @@ package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidQueueException;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserSessionManager;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.dao.user.UserService;
+import com.apploidxxx.entity.queue.Queue;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -21,9 +23,14 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class QueueApi {
 
-
+    /**
+     *
+     * @param queueName имя очереди
+     * @return Очередь в формате JSON или NOT_FOUND
+     */
     @GET
-    public Response getQueue(@Valid@NotNull@QueryParam("queue_name") String queueName){
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getQueue(   @Valid@NotNull@QueryParam("queue_name") String queueName){
 
         try {
             return Response.ok(QueueManager.getQueue(queueName)).build();
@@ -32,9 +39,16 @@ public class QueueApi {
         }
     }
 
+    /**
+     *
+     * @param queueName имя очереди
+     * @param token access_token
+     * @return 200 - успешно вошел в очередь, иначе BAD_REQUEST или NOT_FOUND
+     */
     @PUT
-    public Response joinQueue(@NotNull@QueryParam("queue_name") String queueName,
-                            @NotNull@QueryParam("access_token") String token){
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response joinQueue(  @NotNull@QueryParam("queue_name") String queueName,
+                                @NotNull@QueryParam("access_token") String token){
 
         User user;
         try {
@@ -43,7 +57,7 @@ public class QueueApi {
             return e.getResponse();
         }
         QueueService qs = new QueueService();
-        com.apploidxxx.entity.Queue q = qs.findQueue(queueName);
+        Queue q = qs.findQueue(queueName);
         if (q==null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -59,10 +73,22 @@ public class QueueApi {
 
     }
 
+    /**
+     *
+     * @param queueName имя очереди для короткой ссылки
+     * @param token access_token
+     * @param fullname полное имя очереди
+     * @param password пароль очереди
+     * @param generationType тип генерации
+     * @return 200 - усли успешно, иначе INTERNAL_SERVER_ERROR, либо NOT_FOUND
+     */
     @POST
+    @Produces(MediaType.APPLICATION_JSON)
     public Response createQueue(@Valid@NotNull@QueryParam("queue_name") String queueName,
-                              @Valid@NotNull@QueryParam("access_token") String token,
-                              @Valid@NotNull@QueryParam("fullname") String fullname){
+                                @Valid@NotNull@QueryParam("access_token") String token,
+                                @Valid@NotNull@QueryParam("fullname") String fullname,
+                                @QueryParam("password") String password,
+                                @QueryParam("generation") String generationType){
 
         User user;
         try {
@@ -73,8 +99,11 @@ public class QueueApi {
 
         QueueService qs = new QueueService();
 
-        com.apploidxxx.entity.Queue q = new com.apploidxxx.entity.Queue(queueName, fullname==null?queueName:fullname);
+        Queue q = new Queue(queueName, fullname==null?queueName:fullname);
         q.addSuperUser(user);
+        if (password != null) q.setPassword(password);
+        if (generationType != null) q.setGenerationType(generationType);
+
         try {
             qs.saveQueue(q);
             return Response.ok().build();
@@ -86,22 +115,39 @@ public class QueueApi {
         }
     }
 
+    /**
+     *
+     * @param queueName имя очереди
+     * @param userName нужно указать, если необходимо удлалить пользователя
+     * @param target USER - удалить пользователя, QUEUE - удалить очередь (регистронезависим)
+     * @param token access_token
+     * @return OK, UNAUTHORIZED, NOT_FOUND, NOT_ACCEPTABLE
+     */
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteQueue(@NotNull@QueryParam("queue_name") String queueName,
-                              @Valid@QueryParam("user_name") String userName,
-                              @Valid@QueryParam("access_token") String token){
-
+    public Response delete(@Valid@NotNull@QueryParam("queue_name") String queueName,
+                                @QueryParam("username") String userName,
+                                @Valid@NotNull@QueryParam("target") String target,
+                                @Valid@NotNull@QueryParam("access_token") String token){
+        target = target.toUpperCase();
         User user;
         try {
             user = UserSessionManager.getUser(token);
         } catch (InvalidTokenException e) {
             return e.getResponse();
         }
-        if (userName!=null){
+        if (!target.matches("(USER)|(QUEUE)")){
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("invalid_target", "Unknown target value")).build();
+        } else if (target.equals("USER") && userName == null){
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("invalid_param", "You have to declare username")).build();
+        }
+
+        if (userName!=null && target.equals("USER")){
             return deleteUser(userName, queueName, user);
-        } else {
+        } else if (target.equals("QUEUE")){
             return deleteQueue(queueName, user);
+        } else {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
 
@@ -111,7 +157,7 @@ public class QueueApi {
         }
 
         QueueService qs = new QueueService();
-        com.apploidxxx.entity.Queue q = qs.findQueue(queueName);
+        Queue q = qs.findQueue(queueName);
         if (q.getSuperUsers().contains(user)){
             User delUser = new UserService().findByName(username);
             if (delUser == null){
@@ -124,9 +170,10 @@ public class QueueApi {
         }
 
     }
+
     private Response deleteQueue(String queueName, User user){
         QueueService qs = new QueueService();
-        com.apploidxxx.entity.Queue q = qs.findQueue(queueName);
+        Queue q = qs.findQueue(queueName);
 
         if (q!=null){
             if (q.getSuperUsers().contains(user)){

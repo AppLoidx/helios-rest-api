@@ -1,5 +1,5 @@
 POST http://localhost:8080/myapp/api/register?username=David&password=123&firstName=David&lastName=Elroy&email=davidElroy@gmail.com
-Accept: */*
+Accept: application/json
 Cache-Control: no-cache
 
 ###

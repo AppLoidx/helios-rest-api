@@ -6,7 +6,7 @@ import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserSessionManager;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.Message;
-import com.apploidxxx.entity.Queue;
+import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.chat.ChatService;
 import com.apploidxxx.entity.dao.queue.QueueService;

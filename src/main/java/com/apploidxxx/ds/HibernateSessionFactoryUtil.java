@@ -1,6 +1,7 @@
 package com.apploidxxx.ds;
 
 import com.apploidxxx.entity.*;
+import com.apploidxxx.entity.queue.Queue;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

@@ -1,6 +1,10 @@
-GET http://localhost:8080/myapp/api/user?token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQ0MDk=
-Accept: */*
+GET http://localhost:8080/myapp/api/user?access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
+Accept: application/json
 Cache-Control: no-cache
+
+### Get request with a header
+GET https://httpbin.org/ip
+Accept: application/json
 
 ###
 

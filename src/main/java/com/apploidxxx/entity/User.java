@@ -1,5 +1,6 @@
 package com.apploidxxx.entity;
 
+import com.apploidxxx.entity.queue.Queue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.json.bind.annotation.JsonbTransient;

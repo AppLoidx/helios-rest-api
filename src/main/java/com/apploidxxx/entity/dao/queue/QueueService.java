@@ -1,6 +1,6 @@
 package com.apploidxxx.entity.dao.queue;
 
-import com.apploidxxx.entity.Queue;
+import com.apploidxxx.entity.queue.Queue;
 
 import java.util.List;
 

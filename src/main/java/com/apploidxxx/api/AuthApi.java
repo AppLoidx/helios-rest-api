@@ -22,7 +22,7 @@ import javax.ws.rs.core.Response;
 public class AuthApi {
     @Produces(MediaType.APPLICATION_JSON)
     @GET
-    public Response authorize(  @NotNull @QueryParam("username") String username,
+    public Response authorize(  @NotNull @QueryParam("login") String username,
                                 @NotNull @QueryParam("password") String password){
             UserService service = new UserService();
             User user = service.findByName(username);

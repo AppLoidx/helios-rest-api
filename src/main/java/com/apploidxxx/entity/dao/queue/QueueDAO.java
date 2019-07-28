@@ -1,7 +1,7 @@
 package com.apploidxxx.entity.dao.queue;
 
 import com.apploidxxx.ds.HibernateSessionFactoryUtil;
-import com.apploidxxx.entity.Queue;
+import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.dao.DAOBasicOperations;
 import org.hibernate.Session;
 

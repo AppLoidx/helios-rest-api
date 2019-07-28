@@ -1,6 +1,6 @@
 package com.apploidxxx.api.util;
 
-import com.apploidxxx.entity.Queue;
+import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.User;
 
 import java.io.Serializable;

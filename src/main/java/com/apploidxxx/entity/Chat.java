@@ -1,6 +1,7 @@
 package com.apploidxxx.entity;
 
 import com.apploidxxx.entity.dao.chat.MessageService;
+import com.apploidxxx.entity.queue.Queue;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
