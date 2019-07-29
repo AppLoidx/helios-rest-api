@@ -24,15 +24,16 @@ public class UserService {
     }
 
     public void deleteUser(User user) {
-        QueueService sq = new QueueService();
+        QueueService qs = new QueueService();
         for (Queue q : user.getQueueMember()){
             q.deleteUser(user);
-            sq.updateQueue(q);
+            qs.updateQueue(q);
         }
 
         for (Queue q : user.getQueueSuper()){
             q.deleteSuperUser(user);
-            sq.updateQueue(q);
+            if (q.getSuperUsers().isEmpty()) qs.deleteQueue(q);
+            else qs.updateQueue(q);
         }
 
         usersDao.delete(user);
