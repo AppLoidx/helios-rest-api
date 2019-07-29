@@ -6,6 +6,7 @@ import com.apploidxxx.entity.dao.user.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
@@ -32,6 +33,23 @@ public class RegisterApi {
             return Response
                     .status(Response.Status.BAD_REQUEST)
                     .entity(new ErrorMessage("invalid_username","This username already is taken"))
+                    .build();
+        }
+    }
+
+    @DELETE
+    public Response deleteUser(@Valid@NotNull@QueryParam("username") String username,
+                               @Valid@NotNull@QueryParam("password") String password)
+    {
+        UserService service = new UserService();
+        User user = service.findByName(username);
+        if (user!=null && password.equals(user.getPassword())) {
+            service.deleteUser(user);
+            return Response.ok().build();
+        } else {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(new ErrorMessage("invalid_credentials", "invalid username or password"))
                     .build();
         }
     }
