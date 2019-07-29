@@ -46,7 +46,7 @@ public class AuthApi {
             } else {
                 return Response
                         .status(Response.Status.BAD_REQUEST)
-                        .entity(new ErrorMessage("invalid_credentials", "invalid username or password"))
+                        .entity(new ErrorMessage("invalid_credentials", "invalid login or password"))
                         .build();
             }
     }
