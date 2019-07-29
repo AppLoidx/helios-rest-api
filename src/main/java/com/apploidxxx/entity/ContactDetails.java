@@ -1,6 +1,9 @@
 package com.apploidxxx.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
@@ -9,9 +12,11 @@ import javax.persistence.*;
  * @author Arthur Kupriyanov
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class ContactDetails {
 
-    public ContactDetails(){}
     public ContactDetails(User user, String email, long vkontakteId){
         this.user = user;
         this.email = email;
@@ -38,37 +43,4 @@ public class ContactDetails {
 
     @Column
     private long vkontakteId;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public long getVkontakteId() {
-        return vkontakteId;
-    }
-
-    public void setVkontakteId(int vkontakteId) {
-        this.vkontakteId = vkontakteId;
-    }
 }

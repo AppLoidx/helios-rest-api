@@ -2,6 +2,9 @@ package com.apploidxxx.entity;
 
 import com.apploidxxx.entity.dao.chat.MessageService;
 import com.apploidxxx.entity.queue.Queue;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -11,12 +14,14 @@ import java.util.Set;
  * @author Arthur Kupriyanov
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Chat {
     @Id
     @GeneratedValue
     private long id;
 
-    public Chat(){}
     public Chat(Queue queue){
         this.queue = queue;
     }
@@ -40,11 +45,4 @@ public class Chat {
         }
     }
 
-    public Set<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
-    }
 }

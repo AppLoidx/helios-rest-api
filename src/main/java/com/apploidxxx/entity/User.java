@@ -2,6 +2,9 @@ package com.apploidxxx.entity;
 
 import com.apploidxxx.entity.queue.Queue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
@@ -14,11 +17,10 @@ import java.util.Set;
  */
 @Table(name="users")
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
-
-    public User(){
-
-    }
 
     public User(String username, String password, String firstName, String lastName) {
         this.username = username;
@@ -47,11 +49,14 @@ public class User {
     @JsonbTransient
     private Set<Queue> queueMember;
 
+
+    @JoinColumn(name="session")
     @JsonIgnore
     @JsonbTransient
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     private Session session;
 
+    @JoinColumn(name = "contactDetails")
     @OneToOne(cascade = CascadeType.ALL)
     private ContactDetails contactDetails;
 
@@ -90,66 +95,6 @@ public class User {
 
     public void addVkId(long vkid){
         this.contactDetails = new ContactDetails(this, this.contactDetails.getEmail(), vkid);
-    }
-
-    public void setQueueMember(Set<Queue> queueMember) {
-        this.queueMember = queueMember;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ContactDetails getContactDetails() {
-        return contactDetails;
-    }
-
-    public void setContactDetails(ContactDetails contactDetails) {
-        this.contactDetails = contactDetails;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.apploidxxx.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -8,9 +11,11 @@ import javax.persistence.*;
  * @author Arthur Kupriyanov
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Message {
 
-    public Message(){}
     public Message(User user, String message, Chat chat){
         this.user = user;
         this.message = message;
@@ -31,35 +36,4 @@ public class Message {
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
