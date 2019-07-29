@@ -4,6 +4,10 @@ package com.apploidxxx.entity.queue;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -14,9 +18,12 @@ import java.util.*;
  */
 @Entity
 @Table(name = "queue")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Queue {
 
-    public Queue(){}
     public Queue(String name, String fullname){
         this.name = name;
         this.creationDate = new Date();
@@ -137,66 +144,6 @@ public class Queue {
         return users;
     }
 
-    public void setMembersList(Set<User> membersList) {
-        this.members = membersList;
-    }
-
-    public Set<User> getSuperUsers() {
-        return superUsers;
-    }
-
-    public void setSuperUsers(Set<User> superUsers) {
-        this.superUsers = superUsers;
-    }
-
-    public Set<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(Set<User> members) {
-        this.members = members;
-    }
-
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Chat getChat() {
-        return chat;
-    }
-
-    public void setChat(Chat chat) {
-        this.chat = chat;
-    }
-
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -210,24 +157,8 @@ public class Queue {
         return Objects.hash(name);
     }
 
-    @Override
-    public String toString() {
-        return "QueueApi{" +
-                "name='" + name + '\'' +
-                ", members=" + members +
-                ", superUsers=" + superUsers +
-                '}';
-    }
-
-    public void setGenerationType(GenerationType generationType) {
-        this.generationType = generationType;
-    }
-
     public void setGenerationType(String type){
         this.generationType = GenerationType.getType(type);
     }
 
-    public GenerationType getGenerationType() {
-        return generationType;
-    }
 }
