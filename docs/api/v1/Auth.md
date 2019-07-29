@@ -31,7 +31,7 @@
  
 * **Error Response:**
 
-  * **Code:** 400 BAD_REQUEST <br />
+  * **Code:** 401 Unauthorized <br />
     **Content:** 
     ```json
     {
@@ -39,7 +39,8 @@
       "error_description": "invalid username or password"
     }
     ```
-    
+  * **Code:** 400 Bad Request<br />
+      **Content:** `<Response body is empty>`
     
 * **Sample Call:**
 
