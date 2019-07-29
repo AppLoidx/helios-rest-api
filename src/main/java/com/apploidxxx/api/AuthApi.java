@@ -38,7 +38,6 @@ public class AuthApi {
                     s = new Session();
                     s.generateSession(user);
                     new UserService().updateUser(user);
-                    ss.saveSession(s);
                 }
                 return Response
                         .ok(new Tokens(s.getToken(), "refresh-token", user))
