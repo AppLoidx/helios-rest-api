@@ -19,7 +19,7 @@ class SessionDAO {
     com.apploidxxx.entity.Session findSessionId(String sessionId) {
         try (org.hibernate.Session session =  HibernateSessionFactoryUtil.getSessionFactory().openSession()
         ){
-            return session.createQuery("from Session where sessionId='" + sessionId + "'", com.apploidxxx.entity.Session.class).getSingleResult();
+            return session.createQuery("from Session where token='" + sessionId + "'", com.apploidxxx.entity.Session.class).getSingleResult();
         } catch (NoResultException e){
             return null;
         }
