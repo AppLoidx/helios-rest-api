@@ -1,4 +1,12 @@
-PASSWORD_CONF.properties
-sendgrid.env
+
+### IDEA ###
 .idea
+
+### Configs ###
+
 hibernate.cfg.xml
+PASSWORD_CONF.properties
+
+### Templates ###
+
+src\test\java\com\apploidxxx\api\server-test-template.txt
