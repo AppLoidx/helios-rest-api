@@ -1,57 +1,42 @@
 package com.apploidxxx.entity;
 
 
-import com.apploidxxx.api.util.PasswordChecker;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.apache.commons.codec.digest.Md5Crypt;
 
 import javax.persistence.*;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Objects;
 
 /**
  * @author Arthur Kupriyanov
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Session {
     @Id
     @GeneratedValue
     long id;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private String token;
+
+    @Column(nullable = false)
+    private String refreshToken;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "session")
     private User user;
 
-    public long getId() {
-        return id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public void generateSession(User user){
         user.setSession(this);
         this.user = user;
-        int randomNumber = (int) (Math.random() * 1520);
-        token = Base64.getEncoder().encodeToString(
-                (user.getUsername()
-                        + user.getLastName() +
-                        PasswordChecker.hashPassword(user.getPassword()) + "salt" + randomNumber).getBytes());
-
-
+        token = Base64.getEncoder().encodeToString(Md5Crypt.md5Crypt( (user.getUsername() + new Date().toString() + user.getFirstName()).getBytes() ).getBytes());
+        refreshToken = Base64.getEncoder().encodeToString(Md5Crypt.md5Crypt( (user.getUsername() + new Date().toString() + user.getLastName()).getBytes() ).getBytes());
     }
 
     public void setId(long id) {
@@ -70,4 +55,5 @@ public class Session {
     public int hashCode() {
         return Objects.hash(user);
     }
+
 }
