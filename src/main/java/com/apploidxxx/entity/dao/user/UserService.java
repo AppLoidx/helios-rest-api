@@ -1,6 +1,8 @@
 package com.apploidxxx.entity.dao.user;
 
 import com.apploidxxx.entity.User;
+import com.apploidxxx.entity.dao.queue.QueueService;
+import com.apploidxxx.entity.queue.Queue;
 
 import java.util.List;
 
@@ -22,6 +24,17 @@ public class UserService {
     }
 
     public void deleteUser(User user) {
+        QueueService sq = new QueueService();
+        for (Queue q : user.getQueueMember()){
+            q.deleteUser(user);
+            sq.updateQueue(q);
+        }
+
+        for (Queue q : user.getQueueSuper()){
+            q.deleteSuperUser(user);
+            sq.updateQueue(q);
+        }
+
         usersDao.delete(user);
     }
 
