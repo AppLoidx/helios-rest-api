@@ -183,7 +183,7 @@ public class QueueApi {
                 qs.deleteQueue(q);
                 return Response.ok().build();
             } else {
-                return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+                return Response.status(Response.Status.FORBIDDEN).build();
             }
         } else {
             return Response
