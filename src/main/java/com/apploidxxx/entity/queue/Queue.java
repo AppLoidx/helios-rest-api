@@ -17,7 +17,6 @@ import java.util.*;
  * @author Arthur Kupriyanov
  */
 @Entity
-@Table(name = "queue")
 @Getter
 @Setter
 @NoArgsConstructor
