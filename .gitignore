@@ -1,3 +1,4 @@
 PASSWORD_CONF.properties
 sendgrid.env
 .idea
+hibernate.cfg.xml

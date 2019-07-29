@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-war" name="helios-exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/helios_exploded</output-path>
-    <root id="root">
-      <element id="dir-copy" path="$PROJECT_DIR$/src/main/webapp/WEB-INF" />
-      <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />
-    </root>
-  </artifact>
-</component>
