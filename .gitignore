@@ -9,4 +9,4 @@ PASSWORD_CONF.properties
 
 ### Templates ###
 
-src\test\java\com\apploidxxx\api\server-test-template.txt
+com/apploidxxx/api/server-test-template.txt
