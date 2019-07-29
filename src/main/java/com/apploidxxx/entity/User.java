@@ -49,7 +49,7 @@ public class User {
 
     @JsonIgnore
     @JsonbTransient
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Session session;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -19,7 +19,7 @@ public class Session {
     @Column
     private String token;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "session")
     private User user;
 
     public long getId() {
