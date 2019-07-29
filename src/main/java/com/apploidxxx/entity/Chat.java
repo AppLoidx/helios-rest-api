@@ -21,10 +21,10 @@ public class Chat {
         this.queue = queue;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Queue queue;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Message> messages;
 
     public synchronized void newMessage(User user, String message){

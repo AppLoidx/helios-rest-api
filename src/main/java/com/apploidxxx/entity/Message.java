@@ -22,13 +22,13 @@ public class Message {
     private long id;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Chat chat;
 
     @Column
     private String message;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     public long getId() {

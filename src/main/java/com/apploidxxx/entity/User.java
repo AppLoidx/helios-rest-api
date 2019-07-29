@@ -36,13 +36,13 @@ public class User {
     Long id;
 
 
-    @ManyToMany(mappedBy = "superUsers", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "superUsers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     @JsonbTransient
     private Set<Queue> queueSuper;
 
 
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     @JsonbTransient
     private Set<Queue> queueMember;

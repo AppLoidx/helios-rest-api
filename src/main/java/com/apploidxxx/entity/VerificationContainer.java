@@ -15,7 +15,7 @@ public class VerificationContainer {
     }
 
     @Id
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @Column(unique = true)
     private User user;
 

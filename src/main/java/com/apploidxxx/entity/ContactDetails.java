@@ -30,7 +30,7 @@ public class ContactDetails {
 
     @JsonIgnore
     @JsonbTransient
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     @Column
