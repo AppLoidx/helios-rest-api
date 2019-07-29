@@ -28,6 +28,8 @@ public class UserApi {
             user = UserSessionManager.getUser(token);
         } catch (InvalidTokenException e) {
             return e.getResponse();
+        } catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
         return Response.ok(new UserInfo(user)).build();
 
