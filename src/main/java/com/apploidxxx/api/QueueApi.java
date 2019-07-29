@@ -161,12 +161,15 @@ public class QueueApi {
         if (q.getSuperUsers().contains(user)){
             User delUser = new UserService().findByName(username);
             if (delUser == null){
-                return Response.status(Response.Status.NOT_FOUND).build();
+                return Response
+                        .status(Response.Status.NOT_FOUND)
+                        .entity(new ErrorMessage("user_not_found", "User with name " + username + " not found"))
+                        .build();
             }
             q.getMembers().remove(delUser);
             return Response.ok().build();
         } else {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+            return Response.status(Response.Status.FORBIDDEN).build();
         }
 
     }
@@ -183,7 +186,10 @@ public class QueueApi {
                 return Response.status(Response.Status.NOT_ACCEPTABLE).build();
             }
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessage("queue_not_found", "Queue with name " + queueName + " not found"))
+                    .build();
         }
     }
 }
