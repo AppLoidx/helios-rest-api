@@ -1,8 +1,8 @@
 package com.apploidxxx.entity.dao.queue;
 
 import com.apploidxxx.ds.HibernateSessionFactoryUtil;
-import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.dao.DAOBasicOperations;
+import com.apploidxxx.entity.queue.Queue;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -21,12 +21,10 @@ class QueueDAO {
     private DAOBasicOperations<Queue> basicOperations = new DAOBasicOperations<>();
 
     void save(Queue queue) {
-        System.out.println(queue);
         basicOperations.save(queue);
     }
 
     void update(Queue queue) {
-        System.out.println(queue);
         basicOperations.update(queue);
     }
 
