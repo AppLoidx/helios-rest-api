@@ -48,7 +48,8 @@ public class QueueApi {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public Response joinQueue(  @NotNull@QueryParam("queue_name") String queueName,
-                                @NotNull@QueryParam("access_token") String token){
+                                @NotNull@QueryParam("access_token") String token,
+                                @QueryParam("password") String password){
 
         User user;
         try {
@@ -62,13 +63,25 @@ public class QueueApi {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         if (q.getMembers().contains(user)){
-            return Response.status(Response.Status.BAD_REQUEST).entity("You are already in queue").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("repeated_request","You are already in queue")).build();
         } else {
-            q.addUser(user);
-            qs.updateQueue(q);
-            new UserService().updateUser(user);
+            if (q.getPassword() == null){
+                q.addUser(user);
+                qs.updateQueue(q);
+                return Response.ok().build();
+            } else {
+                if (password == null) return Response.status(Response.Status.BAD_REQUEST).build();
+                else {
+                    if (password.equals(q.getPassword())){
+                        q.addUser( user);
+                        qs.updateQueue(q);
+                        return Response.ok().build();
+                    } else {
+                        return Response.status(Response.Status.FORBIDDEN).build();
+                    }
+                }
+            }
 
-            return Response.ok().build();
         }
 
     }
