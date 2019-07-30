@@ -129,6 +129,7 @@ public class QueueApiTest {
     }
 
 //    JOIN QUEUE TESTS
+
     @Test
     public void joinQueue(){
         post(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&fullname=Test%20Queue")
@@ -150,7 +151,38 @@ public class QueueApiTest {
                         "user", notNullValue()).extract().body().asString();
 
         delete(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
+    }
 
+    @Test
+    public void doubleJoin(){
+        post(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&fullname=Test%20Queue")
+                .then().statusCode(200);
+
+        put(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue")
+                .then().statusCode(200);
+
+        put(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue")
+                .then().statusCode(Response.Status.BAD_REQUEST.getStatusCode())
+                .body("error", equalTo("repeated_request"));
+
+        delete(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
+    }
+
+    @Test
+    public void passwordQue(){
+        post(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&fullname=Test%20Queue&password=123")
+                .then().statusCode(200);
+
+        put(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&password=123")
+                .then().statusCode(200);
+
+        put(Main.BASE_URI + path + "?access_token="+anotherUserToken+"&queue_name=testQue&password=999")
+                .then().statusCode(Response.Status.FORBIDDEN.getStatusCode());
+
+        put(Main.BASE_URI + path + "?access_token="+anotherUserToken+"&queue_name=testQue&password=123")
+                .then().statusCode(200);
+
+        delete(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
     }
 
     @After
