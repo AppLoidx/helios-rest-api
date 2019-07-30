@@ -24,8 +24,7 @@ public class AuthApi {
     @GET
     public Response authorize(  @NotNull @QueryParam("login") String username,
                                 @NotNull @QueryParam("password") String password){
-            UserService service = new UserService();
-            User user = service.findByName(username);
+        User user = UserService.findByName(username);
             if (user!=null && password.equals(user.getPassword())) {
                 SessionService ss = new SessionService();
 
@@ -37,7 +36,7 @@ public class AuthApi {
                 } else {
                     s = new Session();
                     s.generateSession(user);
-                    new UserService().updateUser(user);
+                    UserService.updateUser(user);
                 }
                 return Response
                         .ok(new Tokens(s.getToken(), "refresh-token", user))

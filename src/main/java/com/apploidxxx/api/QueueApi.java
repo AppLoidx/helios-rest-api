@@ -4,7 +4,7 @@ import com.apploidxxx.api.exceptions.InvalidQueueException;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
 import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.api.util.QueueManager;
-import com.apploidxxx.api.util.UserSessionManager;
+import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.dao.user.UserService;
@@ -53,7 +53,7 @@ public class QueueApi {
 
         User user;
         try {
-            user = UserSessionManager.getUser(token);
+            user = UserManager.getUser(token);
         } catch (InvalidTokenException e) {
             return e.getResponse();
         }
@@ -105,7 +105,7 @@ public class QueueApi {
 
         User user;
         try {
-            user = UserSessionManager.getUser(token);
+            user = UserManager.getUser(token);
         } catch (InvalidTokenException e) {
             return e.getResponse();
         }
@@ -145,7 +145,7 @@ public class QueueApi {
         target = target.toUpperCase();
         User user;
         try {
-            user = UserSessionManager.getUser(token);
+            user = UserManager.getUser(token);
         } catch (InvalidTokenException e) {
             return e.getResponse();
         }

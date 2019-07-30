@@ -24,9 +24,8 @@ public class RegisterApi {
                              @Valid@NotNull@QueryParam("last_name") String lastName,
                              @Valid@NotNull@QueryParam("email") String email){
 
-        UserService us = new UserService();
-        if (us.findByName(username)==null){
-            us.saveUser(new User(username, password, firstName, lastName, email));
+        if (UserService.findByName(username)==null){
+            UserService.saveUser(new User(username, password, firstName, lastName, email));
             return Response.ok().build();
         }
         else {
@@ -41,10 +40,9 @@ public class RegisterApi {
     public Response deleteUser(@Valid@NotNull@QueryParam("username") String username,
                                @Valid@NotNull@QueryParam("password") String password)
     {
-        UserService service = new UserService();
-        User user = service.findByName(username);
+        User user = UserService.findByName(username);
         if (user!=null && password.equals(user.getPassword())) {
-            service.deleteUser(user);
+            UserService.deleteUser(user);
             return Response.ok().build();
         } else {
             return Response

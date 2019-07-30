@@ -2,7 +2,7 @@ package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidTokenException;
 import com.apploidxxx.api.util.UserInfo;
-import com.apploidxxx.api.util.UserSessionManager;
+import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.User;
 
 import javax.validation.Valid;
@@ -25,7 +25,7 @@ public class UserApi {
 
         User user;
         try {
-            user = UserSessionManager.getUser(token);
+            user = UserManager.getUser(token);
         } catch (InvalidTokenException e) {
             return e.getResponse();
         } catch (Exception e){

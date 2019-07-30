@@ -3,13 +3,13 @@ package com.apploidxxx.api;
 import com.apploidxxx.api.exceptions.InvalidQueueException;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
 import com.apploidxxx.api.util.QueueManager;
-import com.apploidxxx.api.util.UserSessionManager;
+import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.Message;
-import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.chat.ChatService;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import com.apploidxxx.entity.queue.Queue;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -55,7 +55,7 @@ public class ChatApi {
         User user;
         Queue q;
 
-        try { user = UserSessionManager.getUser(token); } catch (InvalidTokenException e) { return e.getResponse(); }
+        try { user = UserManager.getUser(token); } catch (InvalidTokenException e) { return e.getResponse(); }
         try { q = QueueManager.getQueue(queueName); } catch (InvalidQueueException e) { return e.getResponse(); }
 
         Chat chat = q.getChat();
