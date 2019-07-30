@@ -27,7 +27,7 @@ public class Queue {
         this.name = name;
         this.creationDate = new Date();
         this.queueSequence = new LinkedHashSet<>();
-        this.chat = new Chat();
+        this.chat = new Chat(this);
         this.fullname = fullname;
     }
     public Queue(String name){
