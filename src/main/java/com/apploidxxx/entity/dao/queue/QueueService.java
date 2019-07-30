@@ -8,28 +8,28 @@ import java.util.List;
  * @author Arthur Kupriyanov
  */
 public class QueueService {
-    private QueueDAO queueDAO = new QueueDAO();
+    private  static QueueDAO queueDAO = new QueueDAO();
 
     public QueueService() {
     }
 
-    public Queue findQueue(String queueName) {
+    public static Queue findQueue(String queueName) {
         return queueDAO.findById(queueName);
     }
 
-    public void saveQueue(Queue queue) {
+    public static void saveQueue(Queue queue) {
         queueDAO .save(queue);
     }
 
-    public void deleteQueue(Queue queue) {
+    public static void deleteQueue(Queue queue) {
         queueDAO .delete(queue);
     }
 
-    public void updateQueue(Queue queue) {
+    public static void updateQueue(Queue queue) {
         queueDAO .update(queue);
     }
 
-    public List<Queue> findAllQueues() {
+    public static List<Queue> findAllQueues() {
         return queueDAO .findAll();
     }
 }

@@ -10,44 +10,43 @@ import java.util.List;
  * @author Arthur Kupriyanov
  */
 public class UserService {
-    private UsersDAO usersDao = new UsersDAO();
+    private static UsersDAO usersDao = new UsersDAO();
 
     public UserService() {
     }
 
-    public User findUser(Long id) {
+    public static User findUser(Long id) {
         return usersDao.findById(id);
     }
 
-    public void saveUser(User user) {
+    public static void saveUser(User user) {
         usersDao.save(user);
     }
 
-    public void deleteUser(User user) {
-        QueueService qs = new QueueService();
+    public static void deleteUser(User user) {
         for (Queue q : user.getQueueMember()){
             q.deleteUser(user);
-            qs.updateQueue(q);
+            QueueService.updateQueue(q);
         }
 
         for (Queue q : user.getQueueSuper()){
             q.deleteSuperUser(user);
-            if (q.getSuperUsers().isEmpty()) qs.deleteQueue(q);
-            else qs.updateQueue(q);
+            if (q.getSuperUsers().isEmpty()) QueueService.deleteQueue(q);
+            else QueueService.updateQueue(q);
         }
 
         usersDao.delete(user);
     }
 
-    public void updateUser(User user) {
+    public static void updateUser(User user) {
         usersDao.update(user);
     }
 
-    public List<User> findAllUsers() {
+    public static List<User> findAllUsers() {
         return usersDao.findAll();
     }
 
-    public User findByName(String username){
+    public static User findByName(String username){
         return usersDao.findByName(username);
     }
 
