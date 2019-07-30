@@ -5,6 +5,7 @@ import com.apploidxxx.entity.queue.Queue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Chat {
     @Id
     @GeneratedValue
@@ -26,7 +28,7 @@ public class Chat {
         this.queue = queue;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "chat")
     private Queue queue;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
