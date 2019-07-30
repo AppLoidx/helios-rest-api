@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -21,7 +22,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Queue {
+public class Queue implements Serializable {
 
     public Queue(String name, String fullname){
         this.name = name;

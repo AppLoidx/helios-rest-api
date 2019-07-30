@@ -51,8 +51,8 @@ public class QueueControlApi {
         action = action.toLowerCase();
         switch (action){
             case "shuffle": return shuffle();
-            case "setType": return setType(newType);
-            case "setAdmin": return setAdmin(newAdmin);
+            case "settype": return setType(newType);
+            case "setadmin": return setAdmin(newAdmin);
             default:
                 return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid action param. Please, check allowed actions");
         }

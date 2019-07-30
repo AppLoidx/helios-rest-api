@@ -32,6 +32,8 @@ public class QueueApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getQueue(   @Valid@NotNull@QueryParam("queue_name") String queueName){
 
+        // todo: Create queue info entity (model) for exception SEVERE: Generating incomplete JSON
+
         try {
             return Response.ok(QueueManager.getQueue(queueName)).build();
         } catch (InvalidQueueException e) {
@@ -57,8 +59,7 @@ public class QueueApi {
         } catch (InvalidTokenException e) {
             return e.getResponse();
         }
-        QueueService qs = new QueueService();
-        Queue q = qs.findQueue(queueName);
+        Queue q = QueueService.findQueue(queueName);
         if (q==null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -67,14 +68,14 @@ public class QueueApi {
         } else {
             if (q.getPassword() == null){
                 q.addUser(user);
-                qs.updateQueue(q);
+                QueueService.updateQueue(q);
                 return Response.ok().build();
             } else {
                 if (password == null) return Response.status(Response.Status.BAD_REQUEST).build();
                 else {
                     if (password.equals(q.getPassword())){
                         q.addUser( user);
-                        qs.updateQueue(q);
+                        QueueService.updateQueue(q);
                         return Response.ok().build();
                     } else {
                         return Response.status(Response.Status.FORBIDDEN).build();
@@ -110,15 +111,13 @@ public class QueueApi {
             return e.getResponse();
         }
 
-        QueueService qs = new QueueService();
-
         Queue q = new Queue(queueName, fullname==null?queueName:fullname);
         q.addSuperUser(user);
         if (password != null) q.setPassword(password);
         if (generationType != null) q.setGenerationType(generationType);
 
         try {
-            qs.saveQueue(q);
+            QueueService.saveQueue(q);
             return Response.ok().build();
         }catch (Exception e){
             return Response
@@ -169,10 +168,9 @@ public class QueueApi {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
-        QueueService qs = new QueueService();
-        Queue q = qs.findQueue(queueName);
+        Queue q = QueueService.findQueue(queueName);
         if (q.getSuperUsers().contains(user)){
-            User delUser = new UserService().findByName(username);
+            User delUser = UserService.findByName(username);
             if (delUser == null){
                 return Response
                         .status(Response.Status.NOT_FOUND)
@@ -188,12 +186,11 @@ public class QueueApi {
     }
 
     private Response deleteQueue(String queueName, User user){
-        QueueService qs = new QueueService();
-        Queue q = qs.findQueue(queueName);
+        Queue q = QueueService.findQueue(queueName);
 
         if (q!=null){
             if (q.getSuperUsers().contains(user)){
-                qs.deleteQueue(q);
+                QueueService.deleteQueue(q);
                 return Response.ok().build();
             } else {
                 return Response.status(Response.Status.FORBIDDEN).build();

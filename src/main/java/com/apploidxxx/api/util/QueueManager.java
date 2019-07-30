@@ -1,8 +1,8 @@
 package com.apploidxxx.api.util;
 
 import com.apploidxxx.api.exceptions.InvalidQueueException;
-import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import com.apploidxxx.entity.queue.Queue;
 
 /**
  * @author Arthur Kupriyanov
@@ -10,8 +10,7 @@ import com.apploidxxx.entity.dao.queue.QueueService;
 public class QueueManager {
 
     public  static Queue getQueue(String queueName) throws InvalidQueueException {
-        QueueService qs = new QueueService();
-        Queue q = qs.findQueue(queueName);
+        Queue q = QueueService.findQueue(queueName);
 
         if (q == null){
             throw new InvalidQueueException();
