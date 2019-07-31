@@ -4,11 +4,13 @@ package com.apploidxxx.entity.queue;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -35,11 +37,15 @@ public class Queue implements Serializable {
         this(name, name);
     }
 
+    @JsonProperty("creation_date")
+    @JsonbProperty("creation_date")
     @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date creationDate;
 
     @Column
+    @JsonProperty("generation_type")
+    @JsonbProperty("generation_type")
     private GenerationType generationType;
 
     @Column
@@ -58,6 +64,8 @@ public class Queue implements Serializable {
             inverseJoinColumns={@JoinColumn(name="users_id")})
     private Set<User> members;
 
+    @JsonProperty("super_users")
+    @JsonbProperty("super_users")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="QUEUE_SUPER_USERS",
             joinColumns = {@JoinColumn(name="queue_name")},
@@ -67,6 +75,8 @@ public class Queue implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Chat chat;
 
+    @JsonProperty("queue_sequence")
+    @JsonbProperty("queue_sequence")
     @Column(nullable = false)
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Long> queueSequence;
@@ -163,9 +173,16 @@ public class Queue implements Serializable {
      * Нужен даже с Setter аннотацией lombok
      *
      * @param type строковое значение GenerationType
+     * @return <code>true</code> - если тип валидный, <code>false</code> если тип не опознан
      */
-    public void setGenerationType(String type){
-        this.generationType = GenerationType.getType(type);
+    public boolean setGenerationType(String type){
+        GenerationType newGenerationType = GenerationType.getType(type);
+        if (newGenerationType == GenerationType.NOT_STATED){
+            return false;
+        } else {
+            this.generationType = newGenerationType;
+            return true;
+        }
     }
 
 }
