@@ -58,6 +58,10 @@ public class ChatApi {
         try { user = UserManager.getUser(token); } catch (InvalidTokenException e) { return e.getResponse(); }
         try { q = QueueManager.getQueue(queueName); } catch (InvalidQueueException e) { return e.getResponse(); }
 
+        if (!q.getSuperUsers().contains(user) && !q.getMembers().contains(user)){
+            return ErrorResponseFactory.getForbiddenErrorResponse();
+        }
+
         Chat chat = q.getChat();
         if ("".equals(message))
             return ErrorResponseFactory.getInvalidParamErrorResponse("Your message is invalid");
