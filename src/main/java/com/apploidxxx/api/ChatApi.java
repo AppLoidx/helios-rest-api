@@ -2,6 +2,7 @@ package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidQueueException;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.model.ErrorResponseFactory;
 import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.Chat;
@@ -58,14 +59,11 @@ public class ChatApi {
         try { q = QueueManager.getQueue(queueName); } catch (InvalidQueueException e) { return e.getResponse(); }
 
         Chat chat = q.getChat();
-        if (message.equals(""))
-            return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity("invalid message")
-                    .build();
+        if ("".equals(message))
+            return ErrorResponseFactory.getInvalidParamErrorResponse("Your message is invalid");
 
         chat.newMessage(user, message);
-        new ChatService().updateChat(chat);
+        ChatService.updateChat(chat);
         return Response.ok().build();
 
     }
