@@ -59,8 +59,11 @@ public class QueueControlApi {
     }
 
     private Response shuffle(){
-        this.queue.shuffle();
-        QueueService.updateQueue(this.queue);
+        try {
+            this.queue.shuffle();
+        } catch (Exception e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
         return Response.ok(this.queue).build();
     }
 
