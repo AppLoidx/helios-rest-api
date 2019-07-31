@@ -69,18 +69,21 @@ public class QueueControlApi {
 
     private Response setType(String newType){
         if (newType == null) return ErrorResponseFactory.getInvalidParamErrorResponse("You should add a type param");
-        return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
+
+        if (this.queue.setGenerationType(newType)){
+            QueueService.updateQueue(this.queue);
+            return Response.ok().build();
+        } else {
+            return ErrorResponseFactory.getInvalidParamErrorResponse("Unknown type: " + newType + ". Please, check your request");
+        }
     }
     private Response setAdmin(String newAdmin){
         if (newAdmin == null) return ErrorResponseFactory.getInvalidParamErrorResponse("You should add a type param");
 
         User newAdminUser;
 
-        try {
-            newAdminUser = UserManager.getUserByName(newAdmin);
-        } catch (InvalidTokenException e) {
-            return e.getResponse();
-        }
+        try { newAdminUser = UserManager.getUserByName(newAdmin); }
+        catch (InvalidTokenException e) { return e.getResponse(); }
 
         this.queue.addSuperUser(newAdminUser);
         QueueService.updateQueue(this.queue);
