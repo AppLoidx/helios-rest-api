@@ -7,6 +7,21 @@ import javax.ws.rs.core.Response;
  */
 public class ErrorResponseFactory {
     public static Response getInvalidParamErrorResponse(String description){
-        return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("invalid_param", description)).build();
+        return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(new ErrorMessage("invalid_param", description))
+                .build();
     }
+
+    public static Response getForbiddenErrorResponse(String description){
+        return Response
+                .status(Response.Status.FORBIDDEN)
+                .entity(new ErrorMessage("insufficient_rights", description))
+                .build();
+    }
+
+    public static Response getForbiddenErrorResponse(){
+        return getForbiddenErrorResponse("You don't have enough rights");
+    }
+
 }
