@@ -33,14 +33,27 @@ public class QueueControlApiTest {
 
         post(Main.BASE_URI + "api/queue?access_token="+token+"&queue_name=testQue&fullname=Test%20Queue")
                 .then().statusCode(200);
-
         put(Main.BASE_URI + path + "testQue?action=setAdmin&admin=jackson&access_token="+token).then().statusCode(200);
-
-        System.out.println(get(Main.BASE_URI + "api/queue?queue_name=testQue").then().statusCode(200).extract().body().asString());
-
         delete(Main.BASE_URI + "api/queue?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
 
     }
+
+    @Test
+    public void shuffle_queue(){
+        post(Main.BASE_URI + "api/queue?access_token="+token+"&queue_name=testQue&fullname=Test%20Queue")
+                .then().statusCode(200);
+
+        put(Main.BASE_URI + "api/queue?queue_name=testQue&access_token=" + token);
+        put(Main.BASE_URI + "api/queue?queue_name=testQue&access_token=" + anotherUserToken);
+
+        System.out.println(get(Main.BASE_URI + "api/queue?queue_name=testQue").then().extract().body().jsonPath().getList("queueSequence"));
+
+        put(Main.BASE_URI + path + "testQue?action=shuffle&access_token=" + token).then().statusCode(200);
+        get(Main.BASE_URI + "api/queue?queue_name=testQue").then().statusCode(200);
+
+        delete(Main.BASE_URI + "api/queue?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
+    }
+
 
     @After
     public void tearDown() throws Exception {
