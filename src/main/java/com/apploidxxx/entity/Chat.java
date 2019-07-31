@@ -41,16 +41,14 @@ public class Chat {
     private Set<Message> messages;
 
     public synchronized void newMessage(User user, String message){
-        if (queue.getMembers().contains(user) || queue.getSuperUsers().contains(user)){
-            Message msg = new Message(user, message, this);
-            MessageService ms= new MessageService();
-            ms.saveMessage(msg);
+        Message msg = new Message(user, message, this);
+        MessageService ms= new MessageService();
+        ms.saveMessage(msg);
 
-            if (message==null){ messages = new LinkedHashSet<>();}
+        if (message==null){ messages = new LinkedHashSet<>();}
 
-            messages.add(msg);
+        messages.add(msg);
 
-        }
     }
 
 }
