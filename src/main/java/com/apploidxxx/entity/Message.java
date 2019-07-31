@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 /**
@@ -27,6 +28,7 @@ public class Message {
     private long id;
 
     @JsonIgnore
+    @JsonbTransient
     @ManyToOne(cascade = CascadeType.ALL)
     private Chat chat;
 

@@ -2,11 +2,13 @@ package com.apploidxxx.entity;
 
 import com.apploidxxx.entity.dao.chat.MessageService;
 import com.apploidxxx.entity.queue.Queue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -20,6 +22,8 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 public class Chat {
+    @JsonbTransient
+    @JsonIgnore
     @Id
     @GeneratedValue
     private long id;
@@ -29,6 +33,8 @@ public class Chat {
     }
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "chat")
+    @JsonbTransient
+    @JsonIgnore
     private Queue queue;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
