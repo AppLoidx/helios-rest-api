@@ -6,11 +6,8 @@ import com.apploidxxx.entity.Chat;
  * @author Arthur Kupriyanov
  */
 public class ChatService {
-    ChatDAO chatDAO = new ChatDAO();
-    public void saveChat(Chat c){
-        chatDAO.save(c);
-    }
-    public void updateChat(Chat c){
+    private static ChatDAO chatDAO = new ChatDAO();
+    public static void updateChat(Chat c){
         chatDAO.update(c);
     }
 }
