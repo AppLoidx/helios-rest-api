@@ -27,7 +27,7 @@ public class Queue implements Serializable {
     public Queue(String name, String fullname){
         this.name = name;
         this.creationDate = new Date();
-        this.queueSequence = new LinkedHashSet<>();
+        this.queueSequence = new LinkedList<>();
         this.chat = new Chat(this);
         this.fullname = fullname;
     }
@@ -69,7 +69,7 @@ public class Queue implements Serializable {
 
     @Column(nullable = false)
     @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Long> queueSequence;
+    private List<Long> queueSequence;
 
     @Column
     private String description;
@@ -95,8 +95,10 @@ public class Queue implements Serializable {
     public void addUser(User u){
         if (members==null) members= new HashSet<>();
         members.add(u);
+        if (!queueSequence.contains(u.getId()))
         queueSequence.add(u.getId());
     }
+
     public void deleteUser(User u){
         if (members==null) return;
         members.remove(u);
@@ -125,10 +127,8 @@ public class Queue implements Serializable {
     }
 
     public void shuffle(){
-        System.err.println("Shuffle queue! " + queueSequence + " " + new Date());
-        Collections.shuffle((List<?>) queueSequence);
-        System.err.println("after: " + queueSequence);
-        new QueueService().updateQueue(this);
+        Collections.shuffle(this.queueSequence);
+        QueueService.updateQueue(this);
     }
 
 
@@ -157,6 +157,13 @@ public class Queue implements Serializable {
         return Objects.hash(name);
     }
 
+    /**
+     * Установка значения generation type через String
+     *
+     * Нужен даже с Setter аннотацией lombok
+     *
+     * @param type строковое значение GenerationType
+     */
     public void setGenerationType(String type){
         this.generationType = GenerationType.getType(type);
     }
