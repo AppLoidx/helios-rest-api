@@ -21,7 +21,13 @@ public class Message {
         this.user = user;
         this.message = message;
         this.chat = chat;
+
+        this.username = this.user.getUsername();
+        this.fullname=  this.user.getFirstName() + " " + this.user.getLastName();
     }
+
+    private String username;
+    private String fullname;
 
     @Id
     @GeneratedValue
@@ -36,6 +42,9 @@ public class Message {
     private String message;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JsonbTransient
     private User user;
+
 
 }
