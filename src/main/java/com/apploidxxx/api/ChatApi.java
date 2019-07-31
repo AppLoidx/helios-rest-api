@@ -29,8 +29,7 @@ public class ChatApi {
     @Path("/{queueName}")
     public Response getMessages(@PathParam("queueName") String queueName,
                                     @Valid@NotNull@QueryParam("lastMsgId") int lastMsgId){
-        QueueService qs = new QueueService();
-        Queue queue  = qs.findQueue(queueName);
+        Queue queue  = QueueService.findQueue(queueName);
         if (queue==null){
             return null;
         }
