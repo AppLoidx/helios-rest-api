@@ -140,7 +140,7 @@ public class QueueApi {
     public Response delete(@Valid@NotNull@QueryParam("queue_name") String queueName,
                                 @QueryParam("username") String userName,
                                 @Valid@NotNull@QueryParam("target") String target,
-                                @Valid@NotNull@QueryParam("access_token") String token){
+                                @Valid@NotNull@QueryParam("access_token") String token) {
         target = target.toUpperCase();
         User user;
         try {
@@ -148,14 +148,14 @@ public class QueueApi {
         } catch (InvalidTokenException e) {
             return e.getResponse();
         }
-        if (!target.matches("(USER)|(QUEUE)")){
+        if (!target.matches("(USER)|(QUEUE)")) {
             return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("invalid_target", "Unknown target value")).build();
-        } else if (target.equals("USER") && userName == null){
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("invalid_param", "You have to declare username")).build();
         }
 
-        if (userName!=null && target.equals("USER")){
+        if (userName != null && target.equals("USER")) {
             return deleteUser(userName, queueName, user);
+        } else if (userName == null && target.equals("USER")) {
+            return deleteUser(user.getUsername(), queueName, user);
         } else if (target.equals("QUEUE")){
             return deleteQueue(queueName, user);
         } else {
@@ -169,6 +169,11 @@ public class QueueApi {
         }
 
         Queue q = QueueService.findQueue(queueName);
+        if (username.equals(user.getUsername())){
+            q.getMembers().remove(user);
+            QueueService.updateQueue(q);
+            return Response.ok().build();
+        }
         if (q.getSuperUsers().contains(user)){
             User delUser = UserService.findByName(username);
             if (delUser == null){
@@ -178,6 +183,7 @@ public class QueueApi {
                         .build();
             }
             q.getMembers().remove(delUser);
+            QueueService.updateQueue(q);
             return Response.ok().build();
         } else {
             return Response.status(Response.Status.FORBIDDEN).build();
