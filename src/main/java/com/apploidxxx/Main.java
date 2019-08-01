@@ -6,6 +6,9 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main class.
@@ -20,6 +23,17 @@ public class Main {
      * @return Grizzly HTTP server.
      */
     public static HttpServer startServer() {
+
+        // setup Logger
+        Logger hibernateLog = Logger.getLogger("org.hibernate");
+        hibernateLog.setLevel(Level.SEVERE);
+        Logger l = Logger.getLogger("org.glassfish.grizzly.http.server.HttpHandler");
+        l.setLevel(Level.FINE);
+        l.setUseParentHandlers(false);
+        ConsoleHandler ch = new ConsoleHandler();
+        ch.setLevel(Level.ALL);
+        l.addHandler(ch);
+
         // create a resource config that scans for JAX-RS resources and providers
         // in com.apploidxxx package
         final ResourceConfig rc = new ResourceConfig().packages("com.apploidxxx");
