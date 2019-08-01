@@ -6,8 +6,8 @@ import com.apploidxxx.entity.Message;
  * @author Arthur Kupriyanov
  */
 public class MessageService {
-    private MessageDAO dao = new MessageDAO();
-    public void saveMessage(Message m){
+    private static MessageDAO dao = new MessageDAO();
+    public static void saveMessage(Message m){
         dao.save(m);
     }
 }
