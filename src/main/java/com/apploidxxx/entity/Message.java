@@ -35,13 +35,13 @@ public class Message {
 
     @JsonIgnore
     @JsonbTransient
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Chat chat;
 
     @Column
     private String message;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
     @JsonbTransient
     private User user;

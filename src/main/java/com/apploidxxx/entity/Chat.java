@@ -32,7 +32,7 @@ public class Chat {
         this.queue = queue;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "chat")
+    @OneToOne(mappedBy = "chat")
     @JsonbTransient
     @JsonIgnore
     private Queue queue;
@@ -42,8 +42,7 @@ public class Chat {
 
     public synchronized void newMessage(User user, String message){
         Message msg = new Message(user, message, this);
-        MessageService ms= new MessageService();
-        ms.saveMessage(msg);
+        MessageService.saveMessage(msg);
 
         if (message==null){ messages = new LinkedHashSet<>();}
 
