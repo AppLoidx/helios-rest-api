@@ -1,6 +1,7 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.exceptions.UserNotFoundException;
 import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.api.model.ErrorResponseFactory;
 import com.apploidxxx.api.util.UserManager;
@@ -83,7 +84,7 @@ public class QueueControlApi {
         User newAdminUser;
 
         try { newAdminUser = UserManager.getUserByName(newAdmin); }
-        catch (InvalidTokenException e) { return e.getResponse(); }
+        catch (UserNotFoundException e) { return e.getResponse(); }
 
         this.queue.addSuperUser(newAdminUser);
         QueueService.updateQueue(this.queue);
