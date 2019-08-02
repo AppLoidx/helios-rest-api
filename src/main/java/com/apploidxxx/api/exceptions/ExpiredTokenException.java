@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arthur Kupriyanov
  */
-public class ExpiredTokenException extends Exception implements ResponsibleExceptionImpl {
+public class ExpiredTokenException extends ResponsibleException {
 
     @Override
     public Response getResponse() {

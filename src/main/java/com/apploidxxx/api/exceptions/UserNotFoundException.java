@@ -7,23 +7,22 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arthur Kupriyanov
  */
-public class InvalidQueueException extends ResponsibleException{
-
+public class UserNotFoundException extends ResponsibleException {
     @Override
     public Response getResponse() {
         return Response
                 .status(Response.Status.NOT_FOUND)
-                .entity(new ErrorMessage(getErrorMessage(), getErrorDescription()))
+                .entity(new ErrorMessage("user_not_found", "queried username not found"))
                 .build();
     }
 
     @Override
     public String getErrorMessage() {
-        return "invalid_queue";
+        return null;
     }
 
     @Override
     public String getErrorDescription() {
-        return "queue not found";
+        return null;
     }
 }
