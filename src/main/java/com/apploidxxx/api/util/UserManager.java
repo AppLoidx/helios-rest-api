@@ -1,6 +1,7 @@
 package com.apploidxxx.api.util;
 
 import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.exceptions.UserNotFoundException;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.user.UserService;
 
@@ -17,10 +18,10 @@ public class UserManager {
         }
     }
 
-    public static User getUserByName(String name) throws InvalidTokenException {
+    public static User getUserByName(String name) throws UserNotFoundException {
         User user = UserService.findByName(name);
         if (user == null){
-            throw new InvalidTokenException();
+            throw new UserNotFoundException();
         } else {
             return user;
         }
