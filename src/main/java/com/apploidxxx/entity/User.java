@@ -2,10 +2,12 @@ package com.apploidxxx.entity;
 
 import com.apploidxxx.entity.queue.Queue;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -43,12 +45,19 @@ public class User {
     @JsonbTransient
     private Set<Queue> queueSuper;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JsonbTransient
+    private UserData userdata = new UserData(this);
 
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     @JsonbTransient
     private Set<Queue> queueMember;
 
+    @JsonProperty("user_type")
+    @JsonbProperty("user_type")
+    private UserType userType = UserType.STUDENT;
 
     @JoinColumn(name="session")
     @JsonIgnore
