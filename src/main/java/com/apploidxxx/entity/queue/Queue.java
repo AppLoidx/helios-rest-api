@@ -4,6 +4,7 @@ package com.apploidxxx.entity.queue;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -73,6 +75,8 @@ public class Queue implements Serializable {
     private Set<User> superUsers;
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JsonIgnore
+    @JsonbTransient
     private Chat chat;
 
     @JsonProperty("queue_sequence")
