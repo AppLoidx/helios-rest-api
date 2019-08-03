@@ -1,7 +1,7 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidTokenException;
-import com.apploidxxx.api.util.UserInfo;
+import com.apploidxxx.api.model.UserInfo;
 import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.User;
 
