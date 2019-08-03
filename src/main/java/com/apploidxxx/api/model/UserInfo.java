@@ -1,7 +1,7 @@
-package com.apploidxxx.api.util;
+package com.apploidxxx.api.model;
 
-import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.User;
+import com.apploidxxx.entity.queue.Queue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
