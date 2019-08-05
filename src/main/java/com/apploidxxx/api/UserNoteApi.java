@@ -3,8 +3,9 @@ package com.apploidxxx.api;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
 import com.apploidxxx.api.exceptions.ResponsibleException;
 import com.apploidxxx.api.model.ErrorMessage;
-import com.apploidxxx.api.model.ErrorResponseFactory;
+import com.apploidxxx.api.model.NoteModel;
 import com.apploidxxx.api.model.UserNotes;
+import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.UserType;
@@ -46,9 +47,6 @@ public class UserNoteApi {
 
             note.getAuthor().removeWrittenNote(note);
             note.getTarget().removeNote(note);
-
-            UserService.updateUser(note.getAuthor().getUser());
-            UserService.updateUser(note.getTarget().getUser());
 
             NoteService.delete(note);
             return Response.ok().build();
@@ -129,11 +127,6 @@ public class UserNoteApi {
         UserService.updateUser(user);
         UserService.updateUser(target);
 
-        System.out.println(user.getUserdata().getWrittenNotes());
-        System.out.println(user.getUserdata().getNotes());
-        System.out.println(target.getUserdata().getWrittenNotes());
-        System.out.println(target.getUserdata().getNotes());
-
-        return Response.ok("{note_id : " + note.getId() + "}").build();
+        return Response.ok(NoteModel.getModel(note)).build();
     }
 }
