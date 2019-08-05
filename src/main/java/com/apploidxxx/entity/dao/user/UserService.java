@@ -1,7 +1,6 @@
 package com.apploidxxx.entity.dao.user;
 
 import com.apploidxxx.entity.User;
-import com.apploidxxx.entity.dao.note.NoteService;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.queue.Queue;
 
@@ -35,11 +34,6 @@ public class UserService {
             if (q.getSuperUsers().isEmpty()) QueueService.deleteQueue(q);
             else QueueService.updateQueue(q);
         }
-
-        System.out.println(user.getUserdata().getWrittenNotes());
-        System.out.println(user.getUserdata().getNotes());
-        user.getUserdata().getWrittenNotes().forEach(NoteService::delete);
-        user.getUserdata().getNotes().forEach(NoteService::delete);
 
         usersDao.delete(user);
     }
