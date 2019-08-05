@@ -7,8 +7,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.ws.rs.core.Response;
+
 import static io.restassured.RestAssured.*;
 import static org.junit.Assert.assertEquals;
+
+// TODO: Add teacher user type test with private notes
 
 /**
  * @author Arthur Kupriyanov
@@ -38,14 +42,20 @@ public class UserNoteApiTest {
     @Test
     public void get_note(){
         createNote(token);
-        UserNotes notes = get(Main.BASE_URI + path + "?type=PUBLIC&username=111&access_token=" + anotherToken).then().extract().body().as(UserNotes.class);
+        UserNotes notes = get(Main.BASE_URI + path + "?type=PUBLIC&username=111&access_token=" + anotherToken).then().statusCode(200).and().extract().body().as(UserNotes.class);
         assertEquals(1, notes.getNotes().size());
 
         createNote(token);
-        notes = get(Main.BASE_URI + path + "?type=PUBLIC&username=111&access_token=" + anotherToken).then().extract().body().as(UserNotes.class);
+        notes = get(Main.BASE_URI + path + "?type=PUBLIC&username=111&access_token=" + anotherToken).then().statusCode(200).and().extract().body().as(UserNotes.class);
         assertEquals(2, notes.getNotes().size());
     }
 
+    @Test
+    public void private_notes(){
+        createNote(token);
+        get(Main.BASE_URI + path + "?type=PRIVATE&username=111&access_token=" + anotherToken).then().statusCode(Response.Status.FORBIDDEN.getStatusCode());
+
+    }
     @After
     public void tearDown() throws Exception {
         deleteUser("123");
@@ -63,7 +73,6 @@ public class UserNoteApiTest {
                 .statusCode(200)
                 .and()
                 .extract().body().jsonPath().getString("access_token");
-
     }
 
     private void deleteUser(String username){
@@ -72,6 +81,9 @@ public class UserNoteApiTest {
 
     private String createNote(String token){
         return  with().body("This is my note").request("POST", Main.BASE_URI + path + "?note_type=PUBLIC&target=111&access_token=" + token).then().statusCode(200).extract().jsonPath().getString("note_id");
+    }
+    private String createPrivateNote(String token){
+        return  with().body("This is my note").request("POST", Main.BASE_URI + path + "?note_type=PRIVATE&target=111&access_token=" + token).then().statusCode(200).extract().jsonPath().getString("note_id");
     }
 
 }
