@@ -3,7 +3,7 @@ package com.apploidxxx.api;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
 import com.apploidxxx.api.exceptions.UserNotFoundException;
 import com.apploidxxx.api.model.ErrorMessage;
-import com.apploidxxx.api.model.ErrorResponseFactory;
+import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;

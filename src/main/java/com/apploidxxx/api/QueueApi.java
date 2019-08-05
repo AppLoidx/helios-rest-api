@@ -32,8 +32,6 @@ public class QueueApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getQueue(   @Valid@NotNull@QueryParam("queue_name") String queueName){
 
-        // todo: Create queue info entity (model) for exception SEVERE: Generating incomplete JSON
-
         try {
             return Response.ok(QueueManager.getQueue(queueName)).build();
         } catch (InvalidQueueException e) {

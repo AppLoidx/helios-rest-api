@@ -2,7 +2,7 @@ package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidQueueException;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
-import com.apploidxxx.api.model.ErrorResponseFactory;
+import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.Chat;
