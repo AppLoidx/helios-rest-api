@@ -27,6 +27,9 @@ public class UserData implements Serializable {
     }
 
     @Id
+    @GeneratedValue
+    Long id;
+
     @OneToOne
     private User user;
 
@@ -49,7 +52,7 @@ public class UserData implements Serializable {
     }
 
     public Set<Note> getPrivateNotes(){
-        return notes.stream().filter(n -> n.getType() == NoteType.PUBLIC).collect(Collectors.toSet());
+        return notes.stream().filter(n -> n.getType() == NoteType.PRIVATE).collect(Collectors.toSet());
     }
 
 }
