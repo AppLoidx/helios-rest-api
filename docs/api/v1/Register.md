@@ -48,6 +48,7 @@
 * **Method:**
   
   DELETE
+  <br>Удаление пользователя
   
 *  **URL Params**
 
