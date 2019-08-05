@@ -1,16 +1,26 @@
 package com.apploidxxx.api.model;
 
 import com.apploidxxx.entity.note.Note;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Arthur Kupriyanov
  */
 @Setter
-@AllArgsConstructor
-public class UserNotes {
-    private Set<Note> notes;
+@Getter
+@ToString
+@NoArgsConstructor
+public class UserNotes implements Serializable {
+
+    private Set<NoteModel> notes;
+    public UserNotes(Set<Note> notes){
+        this.notes = notes.stream().map(NoteModel::getModel).collect(Collectors.toSet());
+    }
 }
