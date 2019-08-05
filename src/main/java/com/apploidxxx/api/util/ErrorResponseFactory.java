@@ -1,4 +1,6 @@
-package com.apploidxxx.api.model;
+package com.apploidxxx.api.util;
+
+import com.apploidxxx.api.model.ErrorMessage;
 
 import javax.ws.rs.core.Response;
 
