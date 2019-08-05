@@ -1,6 +1,0 @@
-GET http://localhost:8080/myapp/api/user?token=wrong-session
-Accept: application/json
-Cache-Control: no-cache
-
-###
-

@@ -1,5 +1,0 @@
-POST http://localhost:8080/myapp/api/register?username=Brain&password=123&firstName=Brayan&lastName=Tuesday&email=braineee@gmail.com
-Accept: application/json
-Cache-Control: no-cache
-
-###

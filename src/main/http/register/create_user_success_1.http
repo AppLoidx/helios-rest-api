@@ -1,5 +1,0 @@
-POST http://localhost:8080/myapp/api/register?username=Arthur3&password=123&firstName=Arthur&lastName=Kupriyanov&email=apploidyakutsk@gmail.com
-Accept: application/json
-Cache-Control: no-cache
-
-###

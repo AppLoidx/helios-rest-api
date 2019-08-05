@@ -1,5 +1,0 @@
-GET http://localhost:8080/myapp/api/auth?username=Lily&password=123
-Accept: */*
-Cache-Control: no-cache
-
-###
