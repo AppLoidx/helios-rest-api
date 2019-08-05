@@ -1,10 +1,12 @@
 package com.apploidxxx.entity.note;
 
 import com.apploidxxx.entity.UserData;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.*;
 
 /**
@@ -15,6 +17,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Note {
+    @JsonProperty("note_id")
+    @JsonbProperty("note_id")
     @Id
     @GeneratedValue
     private Long id;
