@@ -114,11 +114,11 @@
             "contactDetails":
               { "email":"apploidyakutsk@gmail.com",
                 "vkontakteId":0},
-            "firstName":"Arthur",
+            "firstName":"Artem",
             "id":1402,
-            "lastName":"Kupriyanov",
+            "lastName":"Kolokolov",
             "user_type":"STUDENT",
-            "username":"wrong-user"}],
+            "username":"ifelseelif"}],
       "name":"testQue",
       "queue_sequence":[1398,1402],
       "super_users":
