@@ -67,6 +67,8 @@ public class User {
 
     @JoinColumn(name = "contactDetails")
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonProperty("contact_details")
+    @JsonbProperty("contact_details")
     private ContactDetails contactDetails;
 
     @Column(name = "username", unique = true, nullable = false)
@@ -79,9 +81,13 @@ public class User {
     private String password;
 
     @Column(name = "firstName", nullable = false)
+    @JsonProperty("first_name")
+    @JsonbProperty("first_name")
     private String firstName;
 
     @Column(name = "lastName")
+    @JsonProperty("last_name")
+    @JsonbProperty("last_name")
     private String lastName;
 
     public Set<Queue> getQueueSuper() {
