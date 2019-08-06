@@ -27,13 +27,13 @@
     {
       "queues": [],
       "user": {
-        "contactDetails": {
+        "contact_details": {
           "email": "apploidyakutsk@gmail.com",
           "vkontakteId": 0
         },
-        "firstName": "Arthur",
+        "first_name": "Arthur",
         "id": 62,
-        "lastName": "Kupriyanov",
+        "last_name": "Kupriyanov",
         "username": "Arthur2"
       }
     }
