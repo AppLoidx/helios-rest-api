@@ -145,7 +145,8 @@ public class Queue implements Serializable {
         QueueService.updateQueue(this);
     }
 
-
+    @JsonIgnore
+    @JsonbTransient
     public List<User> getMembersList() {
         Map<Long, User> mapping = new HashMap<>();
         for (User u : members){
