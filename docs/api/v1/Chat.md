@@ -4,7 +4,7 @@
 
 * **URL**
 
-  /api/chat
+  /api/chat/{queueName}
 
 * **Method:**
   
@@ -14,7 +14,6 @@
 
    **Required:**
  
-    * `queue_name=[string]`
     * `last_msg_id=[int]` - id сообщения, с которого нужно получить новые
 
 * **Success Response:**
@@ -44,7 +43,7 @@
         "fullname":"Arthur Kupriyanov",
         "id":129,
         "message":"I'm fine now",
-        "username":"123",
+        "username":"123"
       }
     ]
 
@@ -52,12 +51,12 @@
 * **Error Response:**
 
   * **Code:** 400 BAD_REQUEST <br />
-    **Content:** 
+    **Content:** `<Response body is empty>`
     
     
 * **Sample Call:**
 
-  `GET .../api/user?access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=`
+  `GET .../api/chat/testQueue?last_msg_id=12`
 
 * **Note**
 
