@@ -14,9 +14,20 @@
 
    **Required:**
  
-   `access_token=[string]`<br>
-   `queue_name=[string]`<br>
-   `fullname=[string]`
+   * `access_token=[string]`
+   * `queue_name=[string]`
+   * `fullname=[string]`
+   
+   **Optional:**
+   
+   * `generation=[string]` - тип гереации при автогенерации очередей
+        * `one_week` - генерировать каждую неделю
+        * `two_week` - генерировать каждые две недели
+        * Если не указывать, то очерелдь не будет генерироваться сама
+   * `password=[string]` - указывается при создании закрытой очереди
+        * Если не указать, то очередь будет открытой
+   
+   
 
 * **Success Response:**
 
@@ -30,7 +41,7 @@
 * **Sample Call:**
 
   ```
-    POST .../api/queue?access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=&fullname=kek&queue_name=lol
+    POST .../api/queue?fullname=kek&queue_name=lol&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
   ```
   
  
