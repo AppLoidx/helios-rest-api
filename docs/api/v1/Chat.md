@@ -8,7 +8,7 @@
 
 * **Method:**
   
-  GET - получить сообщения
+  `GET` - получить сообщения
   
 *  **URL Params**
 
@@ -58,9 +58,11 @@
 
   `GET .../api/chat/testQueue?last_msg_id=12`
 
+<hr>
+
 * **Method:**
   
-  PUT - добавить сообщение
+  `PUT` - добавить сообщение
   
 *  **URL Params**
 

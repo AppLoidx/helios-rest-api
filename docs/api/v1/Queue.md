@@ -43,7 +43,9 @@
   ```
     POST .../api/queue?fullname=kek&queue_name=lol&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
   ```
-  
+
+<hr>
+
 * **Method:**
 
   `PUT` - присоединение к очереди
@@ -75,6 +77,8 @@
     PUT .../api/queue?queue_name=lol&password=123&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
   ```
   
+<hr>
+
 * **Method:**
 
   `GET` - создание очереди
