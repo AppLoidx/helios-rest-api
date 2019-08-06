@@ -16,6 +16,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
+// TODO: Add user filter by group
+
 /**
  * @author Arthur Kupriyanov
  */
