@@ -8,7 +8,7 @@
 
 * **Method:**
   
-  GET
+  GET - получить сообщения
   
 *  **URL Params**
 
@@ -58,7 +58,30 @@
 
   `GET .../api/chat/testQueue?last_msg_id=12`
 
-* **Note**
+* **Method:**
+  
+  PUT - добавить сообщение
+  
+*  **URL Params**
 
-    * Update request to request with response having queue list <br>`[23.07.2019]`
+   **Required:**
+ 
+    * `message=[string]` - сообщение, которое нужно отправить
+    * `access_token=[string]`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `<Response body is empty>`
+    
+* **Error Response:**
+
+  * **Code:** 400 BAD_REQUEST <br />
+    **Content:** `<Response body is empty>`
+    
+    
+* **Sample Call:**
+
+  `GET .../api/chat/testQueue?message=myMessage&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=`
+
   
