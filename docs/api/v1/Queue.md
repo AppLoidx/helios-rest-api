@@ -44,4 +44,35 @@
     POST .../api/queue?fullname=kek&queue_name=lol&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
   ```
   
+* **Method:**
+
+  `PUT` - создание очереди
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   * `access_token=[string]`
+   * `queue_name=[string]`
+   
+   **Optional:**
+   
+   * `password=[string]` - указывается, если очередь закрытая
+   
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `<Response body is empty>`
+ 
+* **Error Response:**
+  * **Code:** 400 BAD_REQUEST <br />
+    **Content:** `<Response body is empty>`
+
+* **Sample Call:**
+
+  ```
+    POST .../api/queue?queue_name=lol&password=123&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
+  ```
+  
  
