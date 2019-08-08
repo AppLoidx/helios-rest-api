@@ -1,0 +1,58 @@
+package com.apploidxxx.api;
+
+import com.apploidxxx.api.exceptions.InvalidQueueException;
+import com.apploidxxx.api.exceptions.UserNotFoundException;
+import com.apploidxxx.api.model.Check;
+import com.apploidxxx.api.util.ErrorResponseFactory;
+import com.apploidxxx.api.util.QueueManager;
+import com.apploidxxx.api.util.UserManager;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+/**
+ * @author Arthur Kupriyanov
+ */
+@Path("/api/check")
+@Produces(MediaType.APPLICATION_JSON)
+public class CheckApi {
+    @GET
+    public Response check(@Valid@NotNull@QueryParam("check") String check,
+                          @QueryParam("username") String username,
+                          @QueryParam("queue_name") String queueName){
+
+        switch (check){
+            case "user_exist": return checkUserExist(username);
+            case "queue_exist": return checkQueueExist(queueName);
+            default: return ErrorResponseFactory.getInvalidParamErrorResponse("invalid check param");
+        }
+
+    }
+
+    private Response checkUserExist(String username){
+        if (username == null) return ErrorResponseFactory.getInvalidParamErrorResponse("invalid username param");
+        try {
+            UserManager.getUserByName(username);
+        } catch (UserNotFoundException e) {
+            return Response.ok(new Check(false)).build();
+        }
+
+        return Response.ok(new Check(true)).build();
+    }
+
+    private Response checkQueueExist(String queueName){
+        if (queueName == null) return ErrorResponseFactory.getInvalidParamErrorResponse("invalid queue_name param");
+        try {
+            QueueManager.getQueue(queueName);
+        } catch (InvalidQueueException e) {
+            return Response.ok(new Check(false)).build();
+        }
+        return Response.ok(new Check(true)).build();
+    }
+}
