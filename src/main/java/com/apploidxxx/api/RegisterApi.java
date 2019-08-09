@@ -1,6 +1,7 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.api.model.ErrorMessage;
+import com.apploidxxx.api.util.Password;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.user.UserService;
 
@@ -25,7 +26,7 @@ public class RegisterApi {
                              @Valid@NotNull@QueryParam("email") String email){
 
         if (UserService.findByName(username)==null){
-            UserService.saveUser(new User(username, password, firstName, lastName, email));
+            UserService.saveUser(new User(username, Password.hash(password), firstName, lastName, email));
             return Response.ok().build();
         }
         else {
@@ -41,7 +42,7 @@ public class RegisterApi {
                                @Valid@NotNull@QueryParam("password") String password)
     {
         User user = UserService.findByName(username);
-        if (user!=null && password.equals(user.getPassword())) {
+        if (user!=null && Password.isEqual(password, user.getPassword())) {
             UserService.deleteUser(user);
             return Response.ok().build();
         } else {

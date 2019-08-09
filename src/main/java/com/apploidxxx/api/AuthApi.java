@@ -1,6 +1,7 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.api.model.ErrorMessage;
+import com.apploidxxx.api.util.Password;
 import com.apploidxxx.entity.Session;
 import com.apploidxxx.entity.Tokens;
 import com.apploidxxx.entity.User;
@@ -25,7 +26,7 @@ public class AuthApi {
     public Response authorize(  @NotNull @QueryParam("login") String username,
                                 @NotNull @QueryParam("password") String password){
         User user = UserService.findByName(username);
-            if (user!=null && password.equals(user.getPassword())) {
+            if (user!=null && Password.isEqual(password, user.getPassword())) {
                 SessionService ss = new SessionService();
 
                 Session s;
