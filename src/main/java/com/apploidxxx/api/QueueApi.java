@@ -114,8 +114,8 @@ public class QueueApi {
 
         Queue q = new Queue(queueName, fullname==null?queueName:fullname);
         q.addSuperUser(user);
-        if (password != null) q.setPassword(password);
-        if (generationType != null) q.setGenerationType(generationType);
+        if (password != null && !"".equals(password)) q.setPassword(password);
+        if (generationType != null && !"".equals(generationType)) q.setGenerationType(generationType);
 
         try {
             QueueService.saveQueue(q);
