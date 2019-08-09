@@ -6,6 +6,8 @@ import com.apploidxxx.api.model.Check;
 import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserManager;
+import com.apploidxxx.entity.dao.queue.QueueService;
+import com.apploidxxx.entity.queue.Queue;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Arthur Kupriyanov
@@ -30,6 +34,7 @@ public class CheckApi {
         switch (check){
             case "user_exist": return checkUserExist(username);
             case "queue_exist": return checkQueueExist(queueName);
+            case "queue_match": return  queueMatch(queueName);
             default: return ErrorResponseFactory.getInvalidParamErrorResponse("invalid check param");
         }
 
@@ -54,5 +59,20 @@ public class CheckApi {
             return Response.ok(new Check(false)).build();
         }
         return Response.ok(new Check(true)).build();
+    }
+
+    private Response queueMatch(String queueName){
+        if (queueName == null) return ErrorResponseFactory.getInvalidParamErrorResponse("invalid queue_name param");
+
+        List<Queue> queueList = QueueService.findAllQueues();
+        List<String> queueNames = new ArrayList<>();
+        for (Queue q : queueList){
+            if (q.getName().matches(queueName + ".*")){
+                queueNames.add(q.getName());
+            }
+        }
+
+        return Response.ok(queueNames).build();
+
     }
 }
