@@ -65,10 +65,11 @@ public class CheckApi {
         if (queueName == null) return ErrorResponseFactory.getInvalidParamErrorResponse("invalid queue_name param");
 
         List<Queue> queueList = QueueService.findAllQueues();
-        List<String> queueNames = new ArrayList<>();
+        List<String[]> queueNames = new ArrayList<>();
         for (Queue q : queueList){
-            if (q.getName().matches(queueName + ".*")){
-                queueNames.add(q.getName());
+        if (    q.getName().matches("(" + queueName + ").*")
+             || q.getFullname().matches("(" + queueName + ").*")){
+                queueNames.add(new String[]{q.getName(), q.getFullname()});
             }
         }
 
