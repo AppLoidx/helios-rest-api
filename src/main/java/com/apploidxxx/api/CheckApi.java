@@ -36,6 +36,7 @@ public class CheckApi {
             case "user_exist": return checkUserExist(username);
             case "queue_exist": return checkQueueExist(queueName);
             case "queue_match": return  queueMatch(queueName);
+            case "queue_private": return queuePrivate(queueName);
             default: return ErrorResponseFactory.getInvalidParamErrorResponse("invalid check param");
         }
 
@@ -79,6 +80,22 @@ public class CheckApi {
         }
 
         return Response.ok(queueNames).build();
+    }
+
+    private Response queuePrivate(String queueName){
+        if (queueName == null) return ErrorResponseFactory.getInvalidParamErrorResponse("invalid queue_name param");
+        try {
+            Queue q = QueueManager.getQueue(queueName);
+            if (q.getPassword() == null){
+
+                return Response.ok(new Check(true)).build();
+            } else {
+
+                return Response.ok(new Check(false)).build();
+            }
+        } catch (InvalidQueueException e) {
+            return e.getResponse();
+        }
 
     }
 }
