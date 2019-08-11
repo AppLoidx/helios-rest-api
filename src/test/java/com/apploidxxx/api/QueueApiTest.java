@@ -142,7 +142,9 @@ public class QueueApiTest {
         .then().statusCode(200);
 
         get(Main.BASE_URI + path + "?queue_name=testQue")
-                .then().statusCode(200).and().body("membersList", notNullValue()).and().extract().body().asString();
+                .then().statusCode(200)
+                .and()
+                .body("members", notNullValue()).and().extract().body().asString();
 
         get(Main.BASE_URI + "api/user?access_token=" + token)
                 .then().statusCode(200)
