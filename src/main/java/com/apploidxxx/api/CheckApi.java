@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * @author Arthur Kupriyanov
@@ -66,10 +67,14 @@ public class CheckApi {
 
         List<Queue> queueList = QueueService.findAllQueues();
         List<String[]> queueNames = new ArrayList<>();
-        for (Queue q : queueList){
-        if (    q.getName().matches("(" + queueName + ").*")
-             || q.getFullname().matches("(" + queueName + ").*")){
-                queueNames.add(new String[]{q.getName(), q.getFullname()});
+        for (Queue q : queueList) {
+            try {
+                if (q.getName().matches("(" + queueName + ").*")
+                        || q.getFullname().matches("(" + queueName + ").*")) {
+                    queueNames.add(new String[]{q.getName(), q.getFullname()});
+                }
+            } catch (PatternSyntaxException ignored){
+
             }
         }
 
