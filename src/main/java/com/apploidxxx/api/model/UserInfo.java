@@ -38,6 +38,7 @@ public class UserInfo implements Serializable {
             memberList.add(new String[]{q.getName(), q.getFullname()});
             AllList.add(new String[]{q.getName(), q.getFullname()});
         }
+        superSet.removeAll(memberSet);
         for (Queue q: superSet
              ) {
             AllList.add(new String[]{q.getName(), q.getFullname()});
