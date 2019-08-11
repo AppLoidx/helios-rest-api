@@ -1,6 +1,7 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.api.model.ErrorMessage;
+import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.Password;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.user.UserService;
@@ -25,15 +26,28 @@ public class RegisterApi {
                              @Valid@NotNull@QueryParam("last_name") String lastName,
                              @Valid@NotNull@QueryParam("email") String email){
 
+        if ("".equals(password) || password.length() < 8){
+            return ErrorResponseFactory.getInvalidParamErrorResponse("Your password length is too small");
+        }
+
+        if (!email.matches(".+@.+")){
+            return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid email param");
+        }
+
+        if (!firstName.matches("[^\\s]+") || !lastName.matches("[^\\s]+")){
+            return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid first_name or last_name param");
+        }
+
+        if (!username.matches("[^\\s]+")){
+            return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid username param");
+        }
+
         if (UserService.findByName(username)==null){
             UserService.saveUser(new User(username, Password.hash(password), firstName, lastName, email));
             return Response.ok().build();
         }
         else {
-            return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorMessage("invalid_username","This username already is taken"))
-                    .build();
+            return ErrorResponseFactory.getInvalidParamErrorResponse("This username already is taken");
         }
     }
 
