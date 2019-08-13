@@ -21,7 +21,8 @@ public class AuthApiTest {
     @Before
     public void setUp() throws Exception {
         this.server = Main.startServer();
-        post(Main.BASE_URI + "api/register?username=123&password=123&first_name=Arthur&last_name=Kupriyanov&email=apploidyakutsk@gmail.com");
+        delete(Main.BASE_URI + "api/register?username=123%password=123");
+        post(Main.BASE_URI + "api/register?username=123&password=123&first_name=Arthur&last_name=Kupriyanov&email=apploidyakutsk@gmail.com").then().extract().body().asString();
     }
 
     @Test
@@ -57,8 +58,7 @@ public class AuthApiTest {
 
     @After
     public void tearDown() throws Exception {
-        delete(Main.BASE_URI + "api/register?username=123&password=123")
-        .then().statusCode(200);
+//        delete(Main.BASE_URI + "api/register?username=123&password=123");
 
         server.shutdownNow();
     }
