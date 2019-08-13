@@ -2,9 +2,11 @@ package com.apploidxxx.api;
 
 import com.apploidxxx.api.exceptions.InvalidQueueException;
 import com.apploidxxx.api.exceptions.InvalidTokenException;
+import com.apploidxxx.api.exceptions.ResponsibleException;
 import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserManager;
+import com.apploidxxx.api.util.VulnerabilityChecker;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.dao.user.UserService;
@@ -108,7 +110,9 @@ public class QueueApi {
         User user;
         try {
             user = UserManager.getUser(token);
-        } catch (InvalidTokenException e) {
+            VulnerabilityChecker.checkWord(queueName);
+            VulnerabilityChecker.checkWord(fullname);
+        } catch (ResponsibleException e) {
             return e.getResponse();
         }
 

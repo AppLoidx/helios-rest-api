@@ -1,8 +1,10 @@
 package com.apploidxxx.api;
 
+import com.apploidxxx.api.exceptions.VulnerabilityException;
 import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.Password;
+import com.apploidxxx.api.util.VulnerabilityChecker;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.user.UserService;
 
@@ -40,6 +42,14 @@ public class RegisterApi {
 
         if (!username.matches("[^\\s]+")){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid username param");
+        }
+
+        try {
+            VulnerabilityChecker.checkWord(firstName);
+            VulnerabilityChecker.checkWord(lastName);
+            VulnerabilityChecker.checkWord(username);
+        } catch (VulnerabilityException e) {
+            e.printStackTrace();
         }
 
         if (UserService.findByName(username)==null){
