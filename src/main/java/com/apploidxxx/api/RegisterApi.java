@@ -1,5 +1,6 @@
 package com.apploidxxx.api;
 
+import com.apploidxxx.Main;
 import com.apploidxxx.api.exceptions.VulnerabilityException;
 import com.apploidxxx.api.model.ErrorMessage;
 import com.apploidxxx.api.util.ErrorResponseFactory;
@@ -28,7 +29,7 @@ public class RegisterApi {
                              @Valid@NotNull@QueryParam("last_name") String lastName,
                              @Valid@NotNull@QueryParam("email") String email){
 
-        if ("".equals(password) || password.length() < 8){
+        if ("".equals(password) || (password.length() < 8 && Main.validatePassword)){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Your password length is too small");
         }
 

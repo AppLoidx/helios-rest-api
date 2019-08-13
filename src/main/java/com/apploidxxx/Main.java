@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class Main {
     // Base URI the Grizzly HTTP server for tests will listen on
     public static final String BASE_URI = "http://localhost:3000/";
+    public static boolean validatePassword = true;
     // Getting port from JAVA_OPTS
     private static String port = System.getenv("PORT");
     // HEROKU URI Setting up
@@ -30,7 +31,7 @@ public class Main {
     public static HttpServer startServer() {
 
         setUpLogger();
-
+        validatePassword = false;
         // create a resource config that scans for JAX-RS resources and providers
         // in com.apploidxxx package
         final ResourceConfig rc = new ResourceConfig().packages("com.apploidxxx");
