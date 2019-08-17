@@ -6,7 +6,7 @@
     <groupId>com.apploidxxx</groupId>
     <artifactId>helios-rest-api</artifactId>
     <packaging>jar</packaging>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
     <name>helios-rest-api</name>
 
     <dependencyManagement>
@@ -35,12 +35,6 @@
          <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>[2.9.9.1,)</version>
         </dependency>
 
         <dependency>
