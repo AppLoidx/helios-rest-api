@@ -76,7 +76,7 @@ public class QueueApi {
                 QueueService.updateQueue(q);
                 return Response.ok().build();
             } else {
-                if (password == null) return Response.status(Response.Status.BAD_REQUEST).build();
+                if (password == null) return Response.status(Response.Status.FORBIDDEN).build();
                 else {
                     if (password.equals(q.getPassword())){
                         q.addUser( user);
