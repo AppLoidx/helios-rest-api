@@ -10,6 +10,7 @@ import com.apploidxxx.api.util.VulnerabilityChecker;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.dao.user.UserService;
+import com.apploidxxx.entity.queue.Notification;
 import com.apploidxxx.entity.queue.Queue;
 
 import javax.validation.Valid;
@@ -71,6 +72,7 @@ public class QueueApi {
         } else {
             if (q.getPassword() == null){
                 q.addUser(user);
+                q.getNotifications().add(new Notification(user, "Пользователь " + user.getFirstName() + " " + user.getLastName() + " присоеденился к очереди"));
                 QueueService.updateQueue(q);
                 return Response.ok().build();
             } else {
@@ -78,6 +80,7 @@ public class QueueApi {
                 else {
                     if (password.equals(q.getPassword())){
                         q.addUser( user);
+                        q.getNotifications().add(new Notification(user, "Пользователь " + user.getFirstName() + " " + user.getLastName() + " присоеденился к очереди"));
                         QueueService.updateQueue(q);
                         return Response.ok().build();
                     } else {
@@ -169,25 +172,34 @@ public class QueueApi {
     }
 
     private Response deleteUser(String username, String queueName, User user){
-        if (user ==null){
+        if (user == null){
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
-        Queue q = QueueService.findQueue(queueName);
+        Queue q;
+        try {
+            q = QueueManager.getQueue(queueName);
+        } catch (InvalidQueueException e) {
+            return e.getResponse();
+        }
+
         if (username.equals(user.getUsername())){
+            if (!q.getMembers().contains(user)) return Response.status(Response.Status.NOT_FOUND).entity(new ErrorMessage("user_not_found", "User with name " + username + " not found")).build();
             q.getMembers().remove(user);
+            q.getNotifications().add(new Notification(null, "Пользователь " + user.getFirstName() + " " + user.getLastName() + " вышел из очереди"));
             QueueService.updateQueue(q);
             return Response.ok().build();
         }
         if (q.getSuperUsers().contains(user)){
             User delUser = UserService.findByName(username);
-            if (delUser == null){
+            if (delUser == null || !q.getMembers().contains(delUser)){
                 return Response
                         .status(Response.Status.NOT_FOUND)
                         .entity(new ErrorMessage("user_not_found", "User with name " + username + " not found"))
                         .build();
             }
             q.getMembers().remove(delUser);
+            q.getNotifications().add(new Notification(user, "Пользователь " + delUser.getFirstName() + " " + delUser.getLastName() + " был удален из очереди"));
             QueueService.updateQueue(q);
             return Response.ok().build();
         } else {
