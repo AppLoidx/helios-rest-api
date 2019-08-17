@@ -7,6 +7,7 @@ import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import com.apploidxxx.entity.queue.Notification;
 import com.apploidxxx.entity.queue.Queue;
 
 import javax.validation.Valid;
@@ -62,6 +63,8 @@ public class QueueControlApi {
     private Response shuffle(){
         try {
             this.queue.shuffle();
+            this.queue.getNotifications().add(new Notification(user, "Очередь перемешана"));
+            QueueService.updateQueue(this.queue);
         } catch (Exception e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
         }
@@ -72,12 +75,14 @@ public class QueueControlApi {
         if (newType == null) return ErrorResponseFactory.getInvalidParamErrorResponse("You should add a type param");
 
         if (this.queue.setGenerationType(newType)){
+            this.queue.getNotifications().add(new Notification(user, "Изменен тип генерации очереди на " + newType));
             QueueService.updateQueue(this.queue);
             return Response.ok().build();
         } else {
             return ErrorResponseFactory.getInvalidParamErrorResponse("Unknown type: " + newType + ". Please, check your request");
         }
     }
+
     private Response setAdmin(String newAdmin){
         if (newAdmin == null) return ErrorResponseFactory.getInvalidParamErrorResponse("You should add a type param");
 

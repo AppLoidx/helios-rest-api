@@ -15,7 +15,6 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -34,6 +33,7 @@ public class Queue implements Serializable {
         this.queueSequence = new LinkedList<>();
         this.chat = new Chat(this);
         this.fullname = fullname;
+        this.notifications = new HashSet<>();
     }
     public Queue(String name){
         this(name, name);
@@ -88,6 +88,9 @@ public class Queue implements Serializable {
     @Column
     private String description;
 
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<Notification> notifications;
+
     public String getName() {
         return name;
     }
@@ -119,27 +122,6 @@ public class Queue implements Serializable {
         queueSequence.remove(u.getId());
     }
 
-    public String getFormattedDate(){
-        if (creationDate!=null)
-            return new SimpleDateFormat("EEE, d MMM HH:mm").format(creationDate);
-        else
-            return "Not Stated";
-    }
-
-    public String getFormattedDescription(int maxLen){
-        String accessType = password==null?
-                "<span style='color:green'>[public]</span> ":
-                "<span style='color:orange'>[private]</span> ";
-        if (description==null) return accessType + "Нету описания";
-        else{
-
-            if (description.length()> maxLen){
-                return description = description.substring(0, maxLen - 3) + "...";
-            }
-            return accessType + description;
-        }
-    }
-
     public void shuffle(){
         Collections.shuffle(this.queueSequence);
         QueueService.updateQueue(this);
@@ -157,6 +139,11 @@ public class Queue implements Serializable {
             users.add(mapping.get(id));
         }
         return users;
+    }
+
+    public Set<Notification> getNotifications(){
+        if (this.notifications == null) this.notifications = new HashSet<>();
+        return this.notifications;
     }
 
     @Override
