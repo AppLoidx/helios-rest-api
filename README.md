@@ -4,5 +4,5 @@
   <img src="https://codecov.io/gh/AppLoidx/helios-rest-api/branch/master/graph/badge.svg" />
 </a></h1>
 
-**API docs v1** : [Documentation](docs/api/v1)
+**API docs v1** : [Documentation](https://apploidx.github.io/helios-doc/)
 
