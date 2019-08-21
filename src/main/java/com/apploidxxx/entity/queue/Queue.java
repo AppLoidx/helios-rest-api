@@ -64,8 +64,7 @@ public class Queue implements Serializable {
     @JoinTable(name="QUEUE_MEMBERS",
             joinColumns = {@JoinColumn(name="queue_name")},
             inverseJoinColumns={@JoinColumn(name="users_id")})
-    @JsonIgnore
-    @JsonbTransient
+
     private Set<User> members;
 
     @JsonProperty("super_users")
@@ -129,8 +128,6 @@ public class Queue implements Serializable {
         QueueService.updateQueue(this);
     }
 
-    @JsonbProperty("members")
-    @JsonProperty("members")
     public List<User> getMembersList() {
         Map<Long, User> mapping = new HashMap<>();
         for (User u : members){
