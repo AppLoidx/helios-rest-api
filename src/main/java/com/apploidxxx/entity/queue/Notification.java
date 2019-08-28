@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author Arthur Kupriyanov
@@ -27,7 +28,12 @@ public class Notification {
         this.author = author;
         this.userId = author==null?"null":author.getUsername();
         this.message = message;
+        this.creationDate = new Date();
     }
+
+    @JsonProperty("creation_date")
+    @JsonbProperty("creation_date")
+    private Date creationDate;
 
     @JsonIgnore
     @JsonbTransient
