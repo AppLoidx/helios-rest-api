@@ -4,6 +4,7 @@ import com.apploidxxx.entity.*;
 import com.apploidxxx.entity.note.Note;
 import com.apploidxxx.entity.queue.Notification;
 import com.apploidxxx.entity.queue.Queue;
+import com.apploidxxx.entity.queue.SwapContainer;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -26,6 +27,7 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(UserData.class);
                 configuration.addAnnotatedClass(Note.class);
                 configuration.addAnnotatedClass(Notification.class);
+                configuration.addAnnotatedClass(SwapContainer.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 

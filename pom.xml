@@ -6,7 +6,7 @@
     <groupId>com.apploidxxx</groupId>
     <artifactId>helios-rest-api</artifactId>
     <packaging>jar</packaging>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.4.1-SNAPSHOT</version>
     <name>helios-rest-api</name>
 
     <dependencyManagement>

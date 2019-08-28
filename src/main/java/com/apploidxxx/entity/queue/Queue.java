@@ -34,6 +34,7 @@ public class Queue implements Serializable {
         this.chat = new Chat(this);
         this.fullname = fullname;
         this.notifications = new HashSet<>();
+        this.swapContainer = new SwapContainer(this);
     }
     public Queue(String name){
         this(name, name);
@@ -92,6 +93,9 @@ public class Queue implements Serializable {
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Notification> notifications;
 
+    @OneToOne(fetch =  FetchType.EAGER, cascade = CascadeType.ALL)
+    private SwapContainer swapContainer;
+
     public String getName() {
         return name;
     }
@@ -126,6 +130,20 @@ public class Queue implements Serializable {
     public void shuffle(){
         Collections.shuffle(this.queueSequence);
         QueueService.updateQueue(this);
+    }
+
+    public void swap(User user1, User user2 ) throws IndexOutOfBoundsException{
+        int firstIndex = -1;
+        int secondIndex = -1;
+        int index = 0;
+        for (Long i : queueSequence){
+            if (user1.getId().equals(i)) firstIndex = index;
+            if (user2.getId().equals(i)) secondIndex= index;
+
+            index++;
+        }
+
+        Collections.swap(queueSequence, firstIndex, secondIndex);
     }
 
     public List<User> getMembersList() {
