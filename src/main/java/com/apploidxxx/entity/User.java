@@ -34,6 +34,10 @@ public class User {
         this(username, password, firstName, lastName);
         this.contactDetails = new ContactDetails(this, email);
     }
+    public User(String username, String password, String firstName, String lastName, String email, String group){
+        this(username, password, firstName, lastName, email);
+        this.groupName = group;
+    }
 
     @Id
     @GeneratedValue
@@ -74,6 +78,7 @@ public class User {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
 
+    private String groupName;
 
     @Column(name = "password", nullable = false)
     @JsonIgnore
