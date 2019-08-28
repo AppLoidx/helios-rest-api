@@ -49,6 +49,36 @@ public class UserApiTest {
                 .then().statusCode(Response.Status.BAD_REQUEST.getStatusCode());
     }
 
+    @Test
+    public void setGroupAfterRegistrationWithoutGroup(){
+        String accessToken = get(Main.BASE_URI + "api/auth?login=123&password=123")
+                .then()
+                .statusCode(200)
+                .and()
+                .extract().body().jsonPath().getString("access_token");
+
+        put(Main.BASE_URI + "api/user?access_token=" + accessToken
+        + "&param=group&value=123").then().statusCode(200);
+    }
+
+    @Test
+    public void setGroupAfterRegistrationWithGroup(){
+        String username_with_group_register = Main.BASE_URI + "api/register?username=with&password=group&first_name=Arthur&last_name=Kupriyanov&email=apploidyakutsk@gmail.com&group=144";
+        post(username_with_group_register).then().statusCode(200);
+        String accessToken = get(Main.BASE_URI + "api/auth?login=with&password=group")
+                .then()
+                .statusCode(200)
+                .and()
+                .extract().body().jsonPath().getString("access_token");
+
+        put(Main.BASE_URI + "api/user?access_token=" + accessToken
+                + "&param=group&value=123").then().statusCode(200);
+        String res = get(Main.BASE_URI + "api/user?access_token=" + accessToken).then().statusCode(200).and().extract().body().asString();
+        System.out.println(res);
+        delete(Main.BASE_URI + "api/register?username=with&password=group");
+
+    }
+
     @After
     public void tearDown() throws Exception {
 

@@ -141,16 +141,18 @@ public class QueueApiTest {
         put(Main.BASE_URI + path + "?access_token="+anotherUserToken+"&queue_name=testQue")
         .then().statusCode(200);
 
-        get(Main.BASE_URI + path + "?queue_name=testQue")
+        String res = get(Main.BASE_URI + path + "?queue_name=testQue")
                 .then().statusCode(200)
                 .and()
                 .body("members", notNullValue()).and().extract().body().asString();
+        System.out.println(res);
 
-        get(Main.BASE_URI + "api/user?access_token=" + token)
+        String userRes = get(Main.BASE_URI + "api/user?access_token=" + token)
                 .then().statusCode(200)
                 .and()
                 .body("queues", notNullValue(Queue.class),
                         "user", notNullValue()).extract().body().asString();
+        System.out.println(userRes);
 
         delete(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
     }

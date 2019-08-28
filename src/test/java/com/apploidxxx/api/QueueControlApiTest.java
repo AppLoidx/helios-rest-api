@@ -51,7 +51,13 @@ public class QueueControlApiTest {
         put(Main.BASE_URI + "api/queue?queue_name=testQue&access_token=" + anotherUserToken);
 
         put(Main.BASE_URI + path + "testQue?action=shuffle&access_token=" + token).then().statusCode(200);
-        get(Main.BASE_URI + "api/queue?queue_name=testQue").then().statusCode(200);
+        System.out.println(get(Main.BASE_URI + "api/queue?queue_name=testQue").then().statusCode(200).extract().body().asString());
+
+        put(Main.BASE_URI + path + "testQue?action=shuffle&access_token=" + token).then().statusCode(200);
+        System.out.println(get(Main.BASE_URI + "api/queue?queue_name=testQue").then().statusCode(200).extract().body().asString());
+
+        put(Main.BASE_URI + path + "testQue?action=shuffle&access_token=" + token).then().statusCode(200);
+        System.out.println(get(Main.BASE_URI + "api/queue?queue_name=testQue").then().statusCode(200).extract().body().asString());
 
         delete(Main.BASE_URI + "api/queue?access_token="+token+"&queue_name=testQue&target=QUEUE").then().statusCode(200);
     }

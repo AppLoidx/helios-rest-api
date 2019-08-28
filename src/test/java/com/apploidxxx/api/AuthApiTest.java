@@ -20,9 +20,11 @@ public class AuthApiTest {
 
     @Before
     public void setUp() throws Exception {
+
         this.server = Main.startServer();
-        delete(Main.BASE_URI + "api/register?username=123%password=123");
-        post(Main.BASE_URI + "api/register?username=123&password=123&first_name=Arthur&last_name=Kupriyanov&email=apploidyakutsk@gmail.com").then().extract().body().asString();
+        delete(Main.BASE_URI + "api/register?username=123&password=123");
+        String res = post(Main.BASE_URI + "api/register?username=123&password=123&first_name=Arthur&last_name=Kupriyanov&email=apploidyakutsk@gmail.com").then().extract().body().asString();
+        System.out.println(res);
     }
 
     @Test
