@@ -1,3 +1,8 @@
 language: java
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - codecov -f target/site/*
+services:
+  - postgresql
+before_script:
+  - psql -c "create database postgres;" -U postgres // your database name
+  - sudo -u postgres psql -c "ALTER ROLE postgres WITH password 'postgres'"
