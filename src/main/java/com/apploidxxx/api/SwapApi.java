@@ -20,6 +20,9 @@ import javax.ws.rs.core.Response;
  */
 @Path("/api/swap")
 public class SwapApi {
+
+    // TODO: Add priority selection !!!
+
     @POST
     public Response requestSwap(@Valid@NotNull@QueryParam("access_token") String accessToken,
                                 @Valid@NotNull@QueryParam("target") String targetUsername,

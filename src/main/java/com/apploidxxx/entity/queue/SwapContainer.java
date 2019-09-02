@@ -50,7 +50,7 @@ public class SwapContainer {
      * @param user цель
      * @return список пользователей
      */
-    public List<User> getUserRequets(User user){
+    public List<User> getUserRequests(User user){
         List<User> users = new ArrayList<>();
         for (User u : swapMap.keySet()){
             if (swapMap.get(u).equals(user)){

@@ -4,7 +4,7 @@
 
 ### Configs ###
 
-hibernate.cfg.xml
+src\main\resources\hibernate.cfg.xml
 PASSWORD_CONF.properties
 
 ### Templates ###

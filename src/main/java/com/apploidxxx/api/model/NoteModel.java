@@ -3,14 +3,12 @@ package com.apploidxxx.api.model;
 import com.apploidxxx.entity.note.Note;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * @author Arthur Kupriyanov
  */
-@ToString
 @NoArgsConstructor
 public class NoteModel {
     @JsonbProperty("note_id")

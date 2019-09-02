@@ -9,7 +9,6 @@ import org.apache.commons.codec.digest.Md5Crypt;
 import javax.persistence.*;
 import java.util.Base64;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * @author Arthur Kupriyanov
@@ -37,23 +36,6 @@ public class Session {
         this.user = user;
         token = Base64.getEncoder().encodeToString(Md5Crypt.md5Crypt( (user.getUsername() + new Date().toString() + user.getFirstName()).getBytes() ).getBytes());
         refreshToken = Base64.getEncoder().encodeToString(Md5Crypt.md5Crypt( (user.getUsername() + new Date().toString() + user.getLastName()).getBytes() ).getBytes());
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Session session = (Session) o;
-        return Objects.equals(user, session.user);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(user);
     }
 
 }
