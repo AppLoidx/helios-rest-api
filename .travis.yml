@@ -1,7 +1,9 @@
 language: java
+jdk:
+  - openjdk8
 after_success:
   - codecov -f target/site/*
 services:
   - postgresql
 before_script:
-  - psql -c "ALTER ROLE postgres WITH password 'postgres'"
+  - sudo postgres psql -c "ALTER ROLE postgres WITH password 'postgres'"
