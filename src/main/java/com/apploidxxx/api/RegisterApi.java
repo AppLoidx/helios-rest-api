@@ -57,6 +57,7 @@ public class RegisterApi {
         }
 
         logger.info("Validating group");
+        if ("".equals(group)) group = null;
         if (group != null && !group.matches("[^\\s]+")){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid group name");
         } else {
