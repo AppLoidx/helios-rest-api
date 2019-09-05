@@ -4,6 +4,7 @@ import com.apploidxxx.entity.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,14 +14,18 @@ import java.util.Map;
 @Entity
 public class SwapContainer {
 
-    public SwapContainer(){}
+    public SwapContainer(){
+        this.swapMap = new HashMap<>();
+    }
     public SwapContainer(Queue queue){
+        this();
         this.queue = queue;
     }
 
     @Id
     @GeneratedValue
     Long id;
+
 
     @OneToOne
     private Queue queue;
@@ -33,6 +38,8 @@ public class SwapContainer {
         swapMap.put(user, target);
         if (user.equals(swapMap.get(target))){
             queue.swap(user, target);
+            swapMap.remove(user);
+            swapMap.remove(target);
         }
     }
 

@@ -80,8 +80,8 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        startServerHeroku(getBaseURI(Integer.parseInt(System.getenv("PORT"))));
-
+//        startServerHeroku(getBaseURI(Integer.parseInt(System.getenv("PORT"))));
+            startServer();
 //        // adding static files mapping
 //        CLStaticHttpHandler handler = new CLStaticHttpHandler(Main.class.getClassLoader(), "/static/");
 //        server.getServerConfiguration().addHttpHandler(handler, "/html");

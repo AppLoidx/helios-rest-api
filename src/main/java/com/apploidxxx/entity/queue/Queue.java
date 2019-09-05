@@ -99,7 +99,11 @@ public class Queue implements Serializable {
     public String getName() {
         return name;
     }
+    public SwapContainer getSwapContainer(){
+        if (swapContainer == null) swapContainer = new SwapContainer(this);
 
+        return swapContainer;
+    }
     public void setName(String name) {
         this.name = name;
     }

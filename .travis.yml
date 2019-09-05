@@ -2,7 +2,7 @@ language: java
 jdk:
   - openjdk8
 after_success:
-  - codecov -f target/site/*
+  - bash <(curl -s https://codecov.io/bash) -f target/site/jacoco/* -t d60d1321-c85a-4ec9-b6f8-3ad8102d24f1
 services:
   - postgresql
 before_script:
