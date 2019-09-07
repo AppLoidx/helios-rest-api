@@ -33,10 +33,10 @@ public class RegisterApi {
                              @Valid@NotNull@QueryParam("last_name") String lastName,
                              @Valid@NotNull@QueryParam("email") String email,
                              @Valid@QueryParam("group") String group){
-        logger.info(String.format("Params \nusername: %s,\npassword: %s, \nfirst_name: %s,\nlast_name: %s\nemail: %s,\ngroup: %s",
+        logger.debug(String.format("Params \nusername: %s,\npassword: %s, \nfirst_name: %s,\nlast_name: %s\nemail: %s,\ngroup: %s",
                 username, password, firstName, lastName, email, group));
 
-        logger.info("Validating the password");
+        logger.debug("Validating the password");
         if ("".equals(password) || (password.length() < 8 && Main.validatePassword)){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Your password length is too small");
         }
@@ -46,17 +46,17 @@ public class RegisterApi {
             return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid email param");
         }
 
-        logger.info("Validating first_name param");
+        logger.debug("Validating first_name param");
         if (!firstName.matches("[^\\s]+") || !lastName.matches("[^\\s]+")){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid first_name or last_name param");
         }
 
-        logger.info("Validating last_name param");
+        logger.debug("Validating last_name param");
         if (!username.matches("[^\\s]+")){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid username param");
         }
 
-        logger.info("Validating group");
+        logger.debug("Validating group");
         if ("".equals(group)) group = null;
         if (group != null && !group.matches("[^\\s]+")){
             return ErrorResponseFactory.getInvalidParamErrorResponse("Invalid group name");
@@ -64,7 +64,7 @@ public class RegisterApi {
             if (group != null && !GroupChecker.isValid(group)) return ErrorResponseFactory.getInvalidParamErrorResponse("Group not found");
         }
 
-        logger.info("Checking params vulnerabilities");
+        logger.debug("Checking params vulnerabilities");
 
         try {
             VulnerabilityChecker.checkWord(firstName);
@@ -72,12 +72,12 @@ public class RegisterApi {
             VulnerabilityChecker.checkWord(username);
             if (group != null) VulnerabilityChecker.checkWord(group);
         } catch (VulnerabilityException e) {
-            logger.info("Founded exception", e);
+            logger.debug("Founded exception", e);
             return e.getResponse();
         }
 
         if (UserService.findByName(username)==null){
-            logger.info("Saving new user");
+            logger.debug("Saving new user");
             UserService.saveUser(new User(username, Password.hash(password), firstName, lastName, email, group));
             return Response.ok().build();
         }
