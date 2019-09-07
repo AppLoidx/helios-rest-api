@@ -43,10 +43,10 @@ public class SwapApi {
                     .entity(new ErrorMessage("user_not_found", "User not found in requested queue")).build();
         }
 
-        queue.getSwapContainer().addSwapRequest(user , targetUser);
+        boolean isSwapped = queue.getSwapContainer().addSwapRequest(user , targetUser);
         QueueService.updateQueue(queue);
 
-
-        return Response.ok().build();
+        if (isSwapped) return Response.ok().build();
+        else return Response.status(Response.Status.ACCEPTED).build();
     }
 }
