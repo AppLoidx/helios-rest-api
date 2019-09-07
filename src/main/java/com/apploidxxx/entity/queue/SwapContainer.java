@@ -34,12 +34,21 @@ public class SwapContainer {
     @MapKeyColumn(name="userMap")
     private Map<User , User> swapMap;
 
-    public void addSwapRequest(User user, User target){
+    /**
+     * Добавляет запрос обмена мест, если обмен произошел, то возврает true, иначе false
+     * @param user отправитель запроса
+     * @param target цель запроса
+     * @return true/false
+     */
+    public boolean addSwapRequest(User user, User target){
         swapMap.put(user, target);
         if (user.equals(swapMap.get(target))){
             queue.swap(user, target);
             swapMap.remove(user);
             swapMap.remove(target);
+            return  true;
+        } else {
+            return false;
         }
     }
 
