@@ -31,7 +31,7 @@ public class SwapApiTest {
         put(Main.BASE_URI + "api/queue?queue_name=123&access_token=" + user2);
 
         // request swap from first user
-        post(Main.BASE_URI + "api/swap?queue_name=123&target=2&access_token=" + user1).then().statusCode(200);
+        post(Main.BASE_URI + "api/swap?queue_name=123&target=2&access_token=" + user1).then().statusCode(202);  // ACCEPTED
         String q1 = get(Main.BASE_URI + "api/queue?queue_name=123").then().extract().jsonPath().getString("queue_sequence");
 
         post(Main.BASE_URI + "api/swap?queue_name=123&target=1&access_token=" + user2).then().statusCode(200);
@@ -44,8 +44,8 @@ public class SwapApiTest {
     @After
     public void tearDown() throws Exception {
         delete(Main.BASE_URI + "api/queue?queue_name=123&access_token=" + user1);
-//        deleteUser("1");
-//        deleteUser("2");
+        deleteUser("1");
+        deleteUser("2");
         this.server.shutdownNow();
 
     }
