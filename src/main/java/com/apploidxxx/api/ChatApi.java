@@ -8,7 +8,6 @@ import com.apploidxxx.api.util.UserManager;
 import com.apploidxxx.entity.Chat;
 import com.apploidxxx.entity.Message;
 import com.apploidxxx.entity.User;
-import com.apploidxxx.entity.dao.chat.ChatService;
 import com.apploidxxx.entity.dao.queue.QueueService;
 import com.apploidxxx.entity.queue.Queue;
 
@@ -67,7 +66,8 @@ public class ChatApi {
             return ErrorResponseFactory.getInvalidParamErrorResponse("Your message is invalid");
 
         chat.newMessage(user, message);
-        ChatService.updateChat(chat);
+        QueueService.updateQueue(q);
+//        ChatService.updateChat(chat);
         return Response.ok().build();
 
     }
