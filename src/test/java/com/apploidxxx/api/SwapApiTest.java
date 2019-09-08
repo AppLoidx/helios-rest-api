@@ -40,7 +40,20 @@ public class SwapApiTest {
         System.out.println("Before : " + q1);
         System.out.println("After: " + q2);
     }
+    @Test
+    public void test_swap_in_user_get_method(){
+        // creating queue
+        post(Main.BASE_URI + "api/queue?queue_name=123&fullname=123&access_token="+ user1);
+        // adding participants
+        put(Main.BASE_URI + "api/queue?queue_name=123&access_token=" + user1);
+        put(Main.BASE_URI + "api/queue?queue_name=123&access_token=" + user2);
 
+        // request swap from first user
+        post(Main.BASE_URI + "api/swap?queue_name=123&target=2&access_token=" + user1).then().statusCode(202);  // ACCEPTED
+        String q1 = get(Main.BASE_URI + "api/queue?queue_name=123").then().extract().jsonPath().getString("queue_sequence");
+
+        System.out.println(get(Main.BASE_URI + "api/user?access_token=" + user1).then().extract().body().asString());
+    }
     @After
     public void tearDown() throws Exception {
         delete(Main.BASE_URI + "api/queue?queue_name=123&access_token=" + user1);
