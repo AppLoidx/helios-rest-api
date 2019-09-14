@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arthur Kupriyanov
  */
-public interface ResponsibleExceptionImpl {
+public interface IResponsibleException {
     Response getResponse();
 
 
