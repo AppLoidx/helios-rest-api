@@ -35,13 +35,13 @@ public class Message {
 
     @JsonIgnore
     @JsonbTransient
-    @ManyToOne
+    @ManyToOne(targetEntity = Chat.class)
     private Chat chat;
 
     @Column
     private String message;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
     @JsonIgnore
     @JsonbTransient
     private User user;

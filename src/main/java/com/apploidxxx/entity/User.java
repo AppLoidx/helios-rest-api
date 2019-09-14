@@ -80,7 +80,7 @@ public class User {
 
     private String groupName;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     @JsonIgnore
     @JsonbTransient
     private String password;

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
@@ -24,7 +23,6 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
 public class Queue implements Serializable {
 
     public Queue(String name, String fullname){
@@ -83,8 +81,9 @@ public class Queue implements Serializable {
 
     @JsonProperty("queue_sequence")
     @JsonbProperty("queue_sequence")
-    @Column(nullable = false)
+    @OrderColumn(nullable = false, name = "sequence")
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="queue_sequence", joinColumns = @JoinColumn(name = "user_id"))
     private List<Long> queueSequence;
 
     @Column
@@ -197,5 +196,4 @@ public class Queue implements Serializable {
             return true;
         }
     }
-
 }
