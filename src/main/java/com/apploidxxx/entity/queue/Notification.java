@@ -37,12 +37,12 @@ public class Notification {
 
     @JsonIgnore
     @JsonbTransient
-    @ManyToOne
+    @ManyToOne(targetEntity = Queue.class)
     private Queue queue;
 
     @JsonIgnore
     @JsonbTransient
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
     private User author;
 
     @JsonProperty("user")

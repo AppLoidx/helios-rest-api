@@ -32,7 +32,7 @@ public class QueueApiTest {
         delete(Main.BASE_URI + path + "?access_token="+token+"&queue_name=testQue&target=QUEUE");
     }
 
-//    CREATE QUEUE TESTS
+    //    CREATE QUEUE TESTS
 
     @Test
     public void createQueue_token_name_fullname() {

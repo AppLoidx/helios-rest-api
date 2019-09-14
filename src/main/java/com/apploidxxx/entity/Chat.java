@@ -44,7 +44,7 @@ public class Chat {
         Message msg = new Message(user, message, this);
         MessageService.saveMessage(msg);
 
-        if (message==null){ messages = new LinkedHashSet<>();}
+        if (messages==null){ messages = new LinkedHashSet<>();}
 
         messages.add(msg);
 
