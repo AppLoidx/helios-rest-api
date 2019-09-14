@@ -6,7 +6,9 @@ import com.apploidxxx.api.model.Check;
 import com.apploidxxx.api.util.ErrorResponseFactory;
 import com.apploidxxx.api.util.QueueManager;
 import com.apploidxxx.api.util.UserManager;
+import com.apploidxxx.entity.ContactDetails;
 import com.apploidxxx.entity.dao.queue.QueueService;
+import com.apploidxxx.entity.dao.user.ContactDetailsService;
 import com.apploidxxx.entity.queue.Queue;
 
 import javax.validation.Valid;
@@ -30,11 +32,13 @@ public class CheckApi {
     @GET
     public Response check(@Valid@NotNull@QueryParam("check") String check,
                           @QueryParam("username") String username,
-                          @QueryParam("queue_name") String queueName){
+                          @QueryParam("queue_name") String queueName,
+                          @QueryParam("email") String email){
 
         switch (check){
             case "user_exist": return checkUserExist(username);
             case "queue_exist": return checkQueueExist(queueName);
+            case "email_exist" : return checkEmailExist(email);
             case "queue_match": return  queueMatch(queueName);
             case "queue_private": return queuePrivate(queueName);
             default: return ErrorResponseFactory.getInvalidParamErrorResponse("invalid check param");
@@ -96,6 +100,15 @@ public class CheckApi {
         } catch (InvalidQueueException e) {
             return e.getResponse();
         }
+    }
 
+    private Response checkEmailExist(String email){
+        try {
+            ContactDetails c = ContactDetailsService.findByEmail(email);
+            if (c != null){
+                return Response.ok(new Check(true)).build();
+            }
+        } catch (UserNotFoundException ignored) { }
+        return Response.ok(new Check(false)).build();
     }
 }
