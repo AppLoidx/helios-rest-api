@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arthur Kupriyanov
  */
-class UserSession {
+class UserSessionManager {
 
 
     public static User getUser(String sessionId){

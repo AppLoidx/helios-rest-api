@@ -10,7 +10,7 @@ import com.apploidxxx.entity.dao.user.UserService;
  */
 public class UserManager {
     public static User getUser(String token) throws InvalidTokenException {
-        User user = UserSession.getUser(token);
+        User user = UserSessionManager.getUser(token);
         if (user == null) {
             throw new InvalidTokenException();
         } else {
