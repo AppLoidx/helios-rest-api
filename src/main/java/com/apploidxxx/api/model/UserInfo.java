@@ -21,6 +21,8 @@ public class UserInfo implements Serializable {
     @JsonbProperty("queues_member")
     private  List<String[]> queuesMember;
 
+    @JsonbProperty("swap_requests")
+    @JsonProperty("swap_requests")
     private List<Map<String, String>> swapRequests;
 
     public UserInfo(User user){
