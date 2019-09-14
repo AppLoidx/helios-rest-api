@@ -28,11 +28,12 @@ public class HibernateSessionFactoryUtil {
                 configuration.addAnnotatedClass(Note.class);
                 configuration.addAnnotatedClass(Notification.class);
                 configuration.addAnnotatedClass(SwapContainer.class);
+                configuration.addAnnotatedClass(AuthorizationCode.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
 
             } catch (Exception e) {
-                System.out.println("Исключение!" + e);
+                System.out.println("Error in Hibernate! Log: " + e);
             }
         }
         return sessionFactory;
