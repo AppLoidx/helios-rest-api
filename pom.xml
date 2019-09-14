@@ -6,7 +6,7 @@
     <groupId>com.apploidxxx</groupId>
     <artifactId>helios-rest-api</artifactId>
     <packaging>jar</packaging>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.7-SNAPSHOT</version>
     <name>helios-rest-api</name>
 
     <dependencyManagement>
@@ -134,7 +134,11 @@
             <scope>provided</scope>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>1.30.2</version>
+        </dependency>
 
     </dependencies>
 
