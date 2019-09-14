@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 /**
  * @author Arthur Kupriyanov
  */
-public class ErrorResponseFactory {
+public abstract class ErrorResponseFactory {
     public static Response getInvalidParamErrorResponse(String description){
         return Response
                 .status(Response.Status.BAD_REQUEST)
