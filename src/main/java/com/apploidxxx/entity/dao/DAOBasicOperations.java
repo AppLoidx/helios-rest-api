@@ -5,6 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
+ *
+ * Базовые операции для DAO (CRUD без R)
+ *
  * @author Arthur Kupriyanov
  */
 public class DAOBasicOperations<T> {

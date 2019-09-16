@@ -1,5 +1,6 @@
-package com.apploidxxx.entity;
+package com.apploidxxx.api.model;
 
+import com.apploidxxx.entity.User;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

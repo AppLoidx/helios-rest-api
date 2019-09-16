@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
+ * Точка входа для запуска на сервисе heroku.com
+ *
  * @author Arthur Kupriyanov
  */
 public class HerokuMain {

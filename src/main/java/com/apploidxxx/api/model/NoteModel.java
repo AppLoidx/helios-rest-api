@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
+ *
+ * POJO объект для заметок преподавателей
+ *
  * @author Arthur Kupriyanov
  */
 @NoArgsConstructor

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
+ *
+ * POJO объект для сообщений об ошибке
+ *
  * @author Arthur Kupriyanov
  */
 public class ErrorMessage {

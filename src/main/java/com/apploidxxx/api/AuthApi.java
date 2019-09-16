@@ -1,10 +1,10 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.api.model.ErrorMessage;
+import com.apploidxxx.api.model.Tokens;
 import com.apploidxxx.api.util.Password;
 import com.apploidxxx.entity.AuthorizationCode;
 import com.apploidxxx.entity.Session;
-import com.apploidxxx.entity.Tokens;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.oauth.AuthorizationCodeService;
 import com.apploidxxx.entity.dao.user.SessionService;

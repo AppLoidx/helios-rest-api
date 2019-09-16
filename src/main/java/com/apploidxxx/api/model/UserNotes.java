@@ -11,6 +11,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
+ *
+ * Список заметок.
+ *
+ * @see NoteModel
  * @author Arthur Kupriyanov
  */
 @Setter

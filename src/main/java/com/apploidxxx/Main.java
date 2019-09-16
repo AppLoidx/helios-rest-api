@@ -12,12 +12,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Main class.
+ * Точка входа для локального запуска сервера
  *
  */
 public class Main {
     // Base URI the Grizzly HTTP server for tests will listen on
     public static final String BASE_URI = "http://localhost:3000/";
+
+    /**
+     * Валидация пароля на безопасность. Его можно отключить при тестировании в локальном режиме,
+     * чтобы не задавать длинные пароли
+     */
     public static boolean validatePassword = true;
 
 

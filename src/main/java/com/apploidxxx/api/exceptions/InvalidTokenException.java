@@ -5,6 +5,8 @@ import com.apploidxxx.api.model.ErrorMessage;
 import javax.ws.rs.core.Response;
 
 /**
+ * Исключение выбрасываемое когда используемый access_token не валиден (или протух)
+ *
  * @author Arthur Kupriyanov
  */
 public class InvalidTokenException extends ResponsibleException{

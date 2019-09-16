@@ -5,6 +5,8 @@ import com.apploidxxx.api.model.ErrorMessage;
 import javax.ws.rs.core.Response;
 
 /**
+ * Ошибка выбрасываемая когда не найдена очередь
+ *
  * @author Arthur Kupriyanov
  */
 public class InvalidQueueException extends ResponsibleException{

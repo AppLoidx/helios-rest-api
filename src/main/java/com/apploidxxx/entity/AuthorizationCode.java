@@ -8,6 +8,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
+ *
+ * Код авторизации при авторизации через Google OAuth 2.0
+ *
+ * С помощью {@link #authCode} можно получить access_token и refresh_token
+ *
  * @author Arthur Kupriyanov
  */
 @Entity

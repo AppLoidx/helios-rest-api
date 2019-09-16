@@ -10,6 +10,9 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.persistence.*;
 
 /**
+ *
+ * Записи преподавателей
+ *
  * @author Arthur Kupriyanov
  */
 @Entity
@@ -30,12 +33,28 @@ public class Note {
         this.content = content;
     }
 
+    /**
+     * Автор заметки
+     */
     @ManyToOne(fetch = FetchType.EAGER)
     private UserData author;
 
+    /**
+     * Адресат заметки
+     */
     @ManyToOne(fetch = FetchType.EAGER)
     private UserData target;
 
+    /**
+     * Содержимое заметки
+     */
     private String content;
+
+    /**
+     * Тип заметки.
+     *
+     * Приватный - виден только преподавателю
+     * Публичный - виден и преподавателю и самому адресату
+     */
     private NoteType type;
 }

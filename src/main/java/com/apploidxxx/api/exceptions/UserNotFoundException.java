@@ -5,6 +5,8 @@ import com.apploidxxx.api.model.ErrorMessage;
 import javax.ws.rs.core.Response;
 
 /**
+ * Исключение выбрасываемое когда не найден пользователь
+ *
  * @author Arthur Kupriyanov
  */
 public class UserNotFoundException extends ResponsibleException {

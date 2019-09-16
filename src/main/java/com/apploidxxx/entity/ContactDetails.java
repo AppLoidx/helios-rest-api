@@ -9,6 +9,12 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 /**
+ * Дополнительные детали о пользователе, например, социальные сети и тд
+ *
+ * Также является POJO объектом для сериализации в информацию о пользователе
+ *
+ * @see com.apploidxxx.api.model.UserInfo
+ *
  * @author Arthur Kupriyanov
  */
 @Entity

@@ -9,6 +9,8 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 /**
+ * Persistence-unit для хранения сообщений в чате ({@link Chat})
+ *
  * @author Arthur Kupriyanov
  */
 @Entity

@@ -11,6 +11,10 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
+ *
+ * POJO объект для информации о пользователе
+ *
+ * @see User
  * @author Arthur Kupriyanov
  */
 @Data

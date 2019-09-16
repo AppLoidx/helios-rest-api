@@ -6,6 +6,8 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
 /**
+ * Фильтр для Cross-Origin Resource Sharing (CORS)
+ *
  * @author Arthur Kupriyanov
  */
 @Provider
@@ -14,6 +16,7 @@ public class CORSFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext,
                        ContainerResponseContext responseContext) {
+
         responseContext.getHeaders().add(
                 "Access-Control-Allow-Origin", "*");
         responseContext.getHeaders().add(

@@ -15,6 +15,9 @@ import java.util.Set;
 
 
 /**
+ *
+ * Данные о пользователе
+ *
  * @author Arthur Kupriyanov
  */
 @Table(name="users")
@@ -95,6 +98,10 @@ public class User {
     @JsonbProperty("last_name")
     private String lastName;
 
+    /**
+     *
+     * @return очереди которые этот пользователь администрирует
+     */
     public Set<Queue> getQueueSuper() {
         if (queueSuper == null){
             queueSuper = new HashSet<>();
@@ -102,19 +109,15 @@ public class User {
         return queueSuper;
     }
 
-    public void setQueueSuper(Set<Queue> queueSuper) {
-        this.queueSuper = queueSuper;
-    }
-
+    /**
+     *
+     * @return очереди в которых этот пользователь является участником
+     */
     public Set<Queue> getQueueMember() {
         if (queueMember ==null){
             queueMember = new HashSet<>();
         }
         return queueMember;
-    }
-
-    public void addVkId(long vkid){
-        this.contactDetails = new ContactDetails(this, this.contactDetails.getEmail(), vkid);
     }
 
     @Override

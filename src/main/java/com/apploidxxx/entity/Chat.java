@@ -14,6 +14,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
+ *
+ * Чат очереди. Имеет отношение One-to-One c {@link Chat}
+ *
  * @author Arthur Kupriyanov
  */
 @Entity
@@ -40,6 +43,13 @@ public class Chat {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Message> messages;
 
+    /**
+     * Добавление нового сообщения в чат
+     * @param user отправитель сообщения
+     * @param message сообщение
+     *
+     * @see Message
+     */
     public synchronized void newMessage(User user, String message){
         Message msg = new Message(user, message, this);
         MessageService.saveMessage(msg);

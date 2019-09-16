@@ -11,6 +11,10 @@ import java.util.Base64;
 import java.util.Date;
 
 /**
+ * Хранение информации о сессии с клиентом.
+ *
+ * Здесь хранятся access и refresh токены
+ *
  * @author Arthur Kupriyanov
  */
 @Entity
@@ -31,6 +35,16 @@ public class Session {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "session")
     private User user;
 
+    /**
+     * Сгенерировать сессию
+     *
+     * Устанавливаем связь между {@link User} и {@link Session}
+     *
+     * Генерируем с помощью {@link Md5Crypt} токены для access и refresh
+     * и кодируем в Base64
+     *
+     * @param user пользователь запросивший токены
+     */
     public void generateSession(User user){
         user.setSession(this);
         this.user = user;
