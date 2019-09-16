@@ -270,7 +270,6 @@ public class MessageDAO {
 |Queue| Информация об очереди |
 | Session | Сессия с пользователем (accessToken, refreshToken) |
 
-<h5 align=center><a href="/helios-doc/">На главную</a></h5>
 
 
 
