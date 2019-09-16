@@ -8,6 +8,9 @@
 **API docs v1** : [Documentation](https://apploidx.github.io/helios-doc/)
 
 # Документация к API Helios
+
+<h2 align=center><img src="https://i.imgur.com/LCermq5.png" width=170 height=170 /></h2>
+
 ## Запуск
 Перед запуском необходимо настроить `hiberante.cfg.xml`
 ```
