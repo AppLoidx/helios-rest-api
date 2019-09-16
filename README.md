@@ -69,8 +69,8 @@ _Листинг 1.1 QueueApi_
 public Response getQueue(   @Valid@NotNull@QueryParam("queue_name") String queueName){  
   
   try {  
-		Queue q = QueueManager.getQueue(queueName);
-		return Response.ok(q).build();  
+	Queue q = QueueManager.getQueue(queueName);
+	return Response.ok(q).build();  
   } catch (InvalidQueueException e) {  
         return e.getResponse();  
   }  
