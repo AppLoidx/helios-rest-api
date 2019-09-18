@@ -26,6 +26,6 @@ public class InvalidQueueException extends ResponsibleException{
 
     @Override
     public String getErrorDescription() {
-        return "queue not found";
+        return "Queue not found";
     }
 }

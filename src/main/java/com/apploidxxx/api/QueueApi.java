@@ -49,6 +49,7 @@ public class QueueApi {
      *
      * @param queueName имя очереди
      * @param token access_token
+     * @param password пароль для очереди (обязателен, если очередь имеет пароль)
      * @return 200 - успешно вошел в очередь, иначе BAD_REQUEST или NOT_FOUND
      */
     @PUT

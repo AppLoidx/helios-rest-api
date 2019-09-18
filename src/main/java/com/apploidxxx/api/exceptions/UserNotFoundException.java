@@ -14,17 +14,17 @@ public class UserNotFoundException extends ResponsibleException {
     public Response getResponse() {
         return Response
                 .status(Response.Status.NOT_FOUND)
-                .entity(new ErrorMessage("user_not_found", "queried username not found"))
+                .entity(new ErrorMessage(getErrorMessage(), getErrorDescription()))
                 .build();
     }
 
     @Override
     public String getErrorMessage() {
-        return null;
+        return "user_not_found";
     }
 
     @Override
     public String getErrorDescription() {
-        return null;
+        return "queried username not found";
     }
 }
