@@ -33,9 +33,8 @@ public class ContactDetails {
         this.email = email;
     }
 
-    // TODO: get from user google-oauth or something...
     @Column
-    private String img = "https://lh3.googleusercontent.com/-NKTIlASJ5Nw/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rc0Ul2uezrC87MAyjgHI7_O5E-92A.CMID/s128-c/photo.jpg";
+    private String img;
 
     @JsonIgnore
     @JsonbTransient
