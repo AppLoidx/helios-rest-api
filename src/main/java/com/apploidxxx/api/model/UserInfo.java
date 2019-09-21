@@ -1,5 +1,6 @@
 package com.apploidxxx.api.model;
 
+import com.apploidxxx.entity.ContactDetails;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.queue.Queue;
 import com.apploidxxx.entity.queue.SwapContainer;
@@ -25,16 +26,25 @@ public class UserInfo implements Serializable {
     @JsonbProperty("queues_member")
     private  List<String[]> queuesMember;
 
-    @JsonbProperty("swap_requests")
-    @JsonProperty("swap_requests")
-    private List<Map<String, String>> swapRequests;
+    @JsonbProperty("swap_requests_in")
+    @JsonProperty("swap_requests_in")
+    private List<Map<String, String>> swapRequestsIn;
+
+    @JsonbProperty("swap_requests_out")
+    @JsonProperty("swap_requests_out")
+    private List<Map<String, String>> swapRequestsOut;
 
     public UserInfo(User user){
         this.user = user;
-        this.swapRequests = new ArrayList<>();
+        this.swapRequestsIn = new ArrayList<>();
+        this.swapRequestsOut = new ArrayList<>();
         initQueues(user);
+        setDefaultImage(user);
     }
-
+    private void setDefaultImage(User user){
+        ContactDetails contactDetails = user.getContactDetails();
+        if (contactDetails.getImg() == null) contactDetails.setImg("https://imgur.com/giuTlrm");
+    }
     private void initQueues(User user){
         Set<String[]> AllList = new HashSet<>();
         Set<String[]> memberList = new HashSet<>();
@@ -59,16 +69,27 @@ public class UserInfo implements Serializable {
 
     private void addSwapRequest(Queue queue, User user){
         SwapContainer sc = queue.getSwapContainer();
-        User target = sc.getSwapRequest(user);
-        if (target != null) {
-            Map<String, String> hashMap = new HashMap<>();
-            hashMap.put("queue_name", queue.getName());
-            hashMap.put("queue_fullname", queue.getFullname());
-            hashMap.put("target_username", target.getUsername());
-            hashMap.put("target_firstname", target.getFirstName());
-            hashMap.put("target_lastname", target.getLastName());
-            swapRequests.add(hashMap);
+        List<User> requestedUsers = sc.getUserRequests(user);
+        if (!requestedUsers.isEmpty()) {
+            for (User userIter: requestedUsers
+                 ) {
+                swapRequestsIn.add(generateMap(queue, userIter));
+            }
         }
+
+        User target = sc.hasRequest(user);
+        if (target != null) swapRequestsOut.add(generateMap(queue, target));
+
+    }
+
+    private Map<String, String> generateMap(Queue queue, User target){
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("queue_name", queue.getName());
+        hashMap.put("queue_fullname", queue.getFullname());
+        hashMap.put("username", target.getUsername());
+        hashMap.put("firstname", target.getFirstName());
+        hashMap.put("lastname", target.getLastName());
+        return hashMap;
     }
 
     public User getUser() {
