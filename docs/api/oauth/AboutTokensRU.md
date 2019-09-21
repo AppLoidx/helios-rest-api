@@ -1,4 +1,4 @@
-# OAuth в целом
+# OAuth 2.0 в целом
 
 <h2 align=center><img src="OAuth-schema.jpeg" /></h2>
 
