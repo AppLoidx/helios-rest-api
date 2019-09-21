@@ -190,4 +190,4 @@
     DELETE .../api/queue?queue_name=lol&target=USER&username=ifelseelif&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=
 ```
  
-<h5 align=center><a href="/helios-doc/wiki/api">Назад</a> | <a href="helios-doc/wiki">На главную</a></h5>
+

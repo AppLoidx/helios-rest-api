@@ -30,12 +30,12 @@
 
   * **Code:** 200 <br />
     **Content:** 
-    ```json
+    ```json5
      {
          exist: true
      }
      ```
-     ```json
+     ```json5
 	[  
 		[  
 				"shortName",  
@@ -57,5 +57,4 @@
 
   `GET .../api/check?username=AppLoidx&check=user_exist`
 
-<h5 align=center><a href="/helios-doc/wiki/api">Назад</a> | <a href="helios-doc/wiki">На главную</a></h5>
   

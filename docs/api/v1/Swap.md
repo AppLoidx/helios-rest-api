@@ -44,4 +44,4 @@
 * **Note:**
 Нужно обновить API так, чтобы люди с разными приоритетами не могли меняться.
 
-<h5 align=center><a href="/helios-doc/wiki/api">Назад</a> | <a href="helios-doc/wiki">На главную</a></h5>
+

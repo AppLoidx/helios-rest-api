@@ -86,4 +86,4 @@
     * **DELETE** method maybe can move to another resource `[29.07.19]`
     * Password verification will be added soon `[29.07.19]`
   
-<h5 align=center><a href="/helios-doc/wiki/api">Назад</a> | <a href="helios-doc/wiki">На главную</a></h5>
+
