@@ -1,6 +1,6 @@
 # OAuth в целом
 
-![](OAuth-schema.jpeg)
+<h2 align=center><img src="OAuth-schema.jpeg" /></h2>
 
 Данный стандарт имеет три воплощения: 1.0, 1.0a и 2.0. Наиболее актуальный и рекомендуемый выпуск - OAuth 2.0.
 
