@@ -28,6 +28,10 @@ https://helios-service.herokuapp.com/api/oauth?authorization_code=<YOUR_CODE>
      "refresh_token": "refresh-token"
  }
 ```
+Если у вас неверный код авторизации, то вы получите такую ошибку:
+```json5
+{"error":"invalid_code","error_description":"Your authorization code is invalid"}
+```
 
 ## Example
 
