@@ -5,11 +5,13 @@
 ## Получение `authorization_code`
 Для начала вам необходимо перенаправить браузер пользователя по адресу:
 ```text
-https://helios-service.herokuapp.com/html/external/login.html?redirect_uri=<YOUR_VALUE>
+https://helios-service.herokuapp.com/html/external/login.html?redirect_uri=<YOUR_VALUE>&state=<YOUR_STATE>
 ```
 
 где вместо `<YOUR_VALUE>` вы должны поставить страницу, на которую будет перенаправлен пользователь с 
-хэш-данным `authorization_code`.
+параметром `authorization_code`. Также можно отправить параметр `state`, который имеет значение по-умолчанию "state". 
+`state` - это произвольный параметр, который вернется вместе с ответом (например, его можно использовать для идентификации
+входящего запроса). 
 
 Если вы не укажите параметр `redirect_uri`, то пользователь по-умолчанию будет перенаправлен на страницу
 `https://helios-service.herokuapp.com/html/external/blank.html`, содержащий `authorization_code`
@@ -42,7 +44,7 @@ https://example.com/login
 
 Для начала мы перенаправим браузер пользователя на адрес:
 ```text
-https://helios-service.herokuapp.com/html/external/login.html?redirect_uri=https%3A%2F%2Fexample.com%2Flogin
+https://helios-service.herokuapp.com/html/external/login.html?redirect_uri=https%3A%2F%2Fexample.com%2Flogin&state=my-custom-state
 ```
 
 _Прим. при URL-кодировании: https://example.com/login превращается в https%3A%2F%2Fexample.com%2Flogin_
@@ -50,11 +52,11 @@ _Прим. при URL-кодировании: https://example.com/login прев
 
 Там пользователь проходит авторизацию и если она успешна, то браузер пользователя перенаправляется по адресу:
 ```text
-https://example.com/login#WFub3YtMTQ0NTU0MDM
+https://example.com/login?authorization_code=WFub3YtMTQ0NTU0MDM&state=my-custom-state
 ```
-где `#WFub3YtMTQ0NTU0MDM` это код авторизации, который нам понадобится для получения `access_token` и `refresh_token`.
+где `authorization_code=WFub3YtMTQ0NTU0MDM` это код авторизации, который нам понадобится для получения `access_token` и `refresh_token`.
 
-Далее, считываем эти хэш-данные и отправляем новый запрос:
+Далее, считываем эти параметры и отправляем новый запрос:
 ```text
 https://helios-service.herokuapp.com/api/oauth?authorization_code=WFub3YtMTQ0NTU0MDM
 ```
