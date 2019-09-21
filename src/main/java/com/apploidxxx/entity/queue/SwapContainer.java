@@ -51,13 +51,12 @@ public class SwapContainer {
             return false;
         }
     }
-
     /**
      * Возвращает цель запроса смены мест
      * @param user заказчик (запрашивающий)
      * @return пользователь (цель)
      */
-    public User getSwapRequest(User user){
+    public User hasRequest(User user){
         return swapMap.get(user);
     }
 
