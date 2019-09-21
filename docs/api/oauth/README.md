@@ -42,6 +42,7 @@ https://helios-service.herokuapp.com/html/external/login.html?redirect_uri=https
 ```
 
 _Прим. при URL-кодировании: https://example.com/login превращается в https%3A%2F%2Fexample.com%2Flogin_
+<hr>
 
 Там пользователь проходит авторизацию и если она успешна, то браузер пользователя перенаправляется по адресу:
 ```text
