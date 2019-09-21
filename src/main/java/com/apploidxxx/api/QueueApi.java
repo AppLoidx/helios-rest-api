@@ -126,6 +126,7 @@ public class QueueApi {
         if (generationType != null && !"".equals(generationType)) q.setGenerationType(generationType);
 
         try {
+            q.getNotifications().add(new Notification(null, "Создана очередь"));
             QueueService.saveQueue(q);
             return Response.ok().build();
         }catch (Exception e){
@@ -158,7 +159,10 @@ public class QueueApi {
             return e.getResponse();
         }
         if (!target.matches("(USER)|(QUEUE)")) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(new ErrorMessage("invalid_target", "Unknown target value")).build();
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(new ErrorMessage("invalid_target", "Unknown target value"))
+                    .build();
         }
 
         if (userName != null && target.equals("USER")) {
@@ -185,7 +189,11 @@ public class QueueApi {
         }
 
         if (username.equals(user.getUsername())){
-            if (!q.getMembers().contains(user)) return Response.status(Response.Status.NOT_FOUND).entity(new ErrorMessage("user_not_found", "User with name " + username + " not found")).build();
+            if (!q.getMembers().contains(user))
+                return Response
+                        .status(Response.Status.NOT_FOUND)
+                        .entity(new ErrorMessage("user_not_found", "User with name " + username + " not found"))
+                        .build();
             q.getMembers().remove(user);
             q.getNotifications().add(new Notification(null, "Пользователь " + user.getFirstName() + " " + user.getLastName() + " вышел из очереди"));
             QueueService.updateQueue(q);
