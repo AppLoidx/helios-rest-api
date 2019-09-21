@@ -30,7 +30,8 @@ public class AuthApi {
     @GET
     public Response authorize(  @NotNull @QueryParam("login") String username,
                                 @NotNull @QueryParam("password") String password,
-                                @QueryParam("redirect_uri") String redirectUri){
+                                @QueryParam("redirect_uri") String redirectUri,
+                                @QueryParam("state") String state){
         User user = UserService.findByName(username);
             if (user!=null && Password.isEqual(password, user.getPassword())) {
 
@@ -42,7 +43,12 @@ public class AuthApi {
                 } else {
                     AuthorizationCode authorizationCode = new AuthorizationCode(user);
                     AuthorizationCodeService.save(authorizationCode);
-                    URI uri = UriBuilder.fromPath(redirectUri).fragment("authorization_code="+authorizationCode.getAuthCode()).build();
+                    if (state == null) state = "state";
+                    URI uri = UriBuilder
+                            .fromPath(redirectUri)
+                            .queryParam("authorization_code", authorizationCode.getAuthCode())
+                            .queryParam("state", state)
+                            .build();
                     return Response.temporaryRedirect(uri).build();
                 }
             } else {
