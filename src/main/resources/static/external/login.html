@@ -93,7 +93,8 @@
                 <input class="type-input" type="password" autocomplete="current-password" id="password" name="password">
                 <input type="submit"
                        id="submit" value="Submit" >
-                <input type="text" id="redirect_uri" name="redirect_uri" readonly hidden value="http://localhost:3000/html/external/blank.html">
+                <input type="text" id="redirect_uri" name="redirect_uri" readonly hidden value="/html/external/blank.html">
+                <input type="text" id="state" name="state" readonly hidden value="">
 
             </form>
 
@@ -104,8 +105,12 @@
 <script>
     let urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("redirect_uri")) {
-        console.log("Setting redirect uri : " + urlParams.get("redirect_uri"));
         document.querySelector("#redirect_uri").setAttribute("value", urlParams.get("redirect_uri"));
+    }
+    if (urlParams.has("state")) {
+        document.querySelector("#state").setAttribute("value", urlParams.get("state"));
+    } else {
+        document.querySelector("#state").setAttribute("disabled", "disabled");
     }
 </script>
 
