@@ -23,6 +23,8 @@ https://helios-service.herokuapp.com/api/oauth?authorization_code=<YOUR_CODE>
 ```
 где вместо `<YOUR_CODE>` вы должны использовать код, который вы получили на первом пункте.
 
+<br>
+
 В ответе вы получите `access_token` и `refresh_token`:
 ```json5
  {
@@ -30,6 +32,9 @@ https://helios-service.herokuapp.com/api/oauth?authorization_code=<YOUR_CODE>
      "refresh_token": "refresh-token"
  }
 ```
+
+<br>
+
 Если у вас неверный код авторизации, то вы получите такую ошибку:
 ```json5
 {"error":"invalid_code","error_description":"Your authorization code is invalid"}
@@ -41,6 +46,8 @@ https://helios-service.herokuapp.com/api/oauth?authorization_code=<YOUR_CODE>
 ```text
 https://example.com/login
 ```
+
+<br>
 
 Для начала мы перенаправим браузер пользователя на адрес:
 ```text
@@ -55,6 +62,8 @@ _Прим. при URL-кодировании: https://example.com/login прев
 https://example.com/login?authorization_code=WFub3YtMTQ0NTU0MDM&state=my-custom-state
 ```
 где `authorization_code=WFub3YtMTQ0NTU0MDM` это код авторизации, который нам понадобится для получения `access_token` и `refresh_token`.
+
+<br>
 
 Далее, считываем эти параметры и отправляем новый запрос:
 ```text
