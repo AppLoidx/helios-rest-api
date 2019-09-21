@@ -47,7 +47,7 @@ java -jar target/fileName.jar
 
 ## api/exceptions
 ![](https://i.imgur.com/oGFyG4C.png) 
-#### IResponsibleExceptionImpl
+#### IResponsibleException
 - Интерфейс для всех исключений выбрасываемых в работе с API и которые могут генерировать `Response` для отправки клиенту. 
 ```java
 import javax.ws.rs.core.Response;
