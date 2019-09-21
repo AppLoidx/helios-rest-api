@@ -1,4 +1,4 @@
-**Chat**
+﻿**Chat**
 ----
   Api для управления чатом и получения сообщений
 
@@ -78,7 +78,7 @@
     
 * **Error Response:**
 
-  * **Code:** 400 BAD_REQUEST <br />
+  * **Code:** 400 Bad Request <br />
     **Content:** `<Response body is empty>`
     
     
@@ -86,4 +86,4 @@
 
   `GET .../api/chat/testQueue?message=myMessage&access_token=QXJ0aHVyMkt1cHJpeWFub3YtMTQ0NTU0MDM3NXNhbHQyNzY=`
 
-  
+<h5 align=center><a href="/helios-doc/wiki/api">Назад</a> | <a href="helios-doc/wiki">На главную</a></h5>
