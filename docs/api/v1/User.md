@@ -26,47 +26,37 @@
 ```json
 {
    "queues":[
-      [
-         "short-name",
-         "Full Name of Queue"
-      ]
+      {
+         "short_name":"123",
+         "fullname":"123"
+      }
    ],
    "queues_member":[
-      [
-         "short-name",
-         "Full Name of Queue"
-      ],
-      [
-         "queue-2",
-         "Only membered Queue (without admin)"
-      ] 
+      {
+         "short_name":"123",
+         "fullname":"123"
+      }
    ],
    "swap_requests_in":[
-      {
-         "queue_name":"777qty",
-         "firstname":"Sasha",
-         "lastname":"Tarasov",
-         "queue_fullname":"123",
-         "username":"trsv"
-      }
+
    ],
    "swap_requests_out":[
       {
          "queue_name":"123",
          "firstname":"Arthur",
-         "lastname":"Kupriyanov",
          "queue_fullname":"123",
-         "username":"2"
+         "username":"2",
+         "lastname":"Kupriyanov"
       }
    ],
    "user":{
       "contact_details":{
          "email":"apploidyakutsk@gmail.com",
          "img":"https://imgur.com/giuTlrm",
-         "vkontakteId": 0
+         "vkontakteId":0
       },
       "first_name":"Arthur",
-      "id":10587,
+      "id":12242,
       "last_name":"Kupriyanov",
       "user_type":"STUDENT",
       "username":"1"
