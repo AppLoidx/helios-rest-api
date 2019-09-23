@@ -21,10 +21,12 @@ import java.util.*;
 @Data
 public class UserInfo implements Serializable {
     private  User user;
-    private  List<String[]> queues;
+
+    private  List<Map<String, String>> queues;
+
     @JsonProperty("queues_member")
     @JsonbProperty("queues_member")
-    private  List<String[]> queuesMember;
+    private  List<Map<String, String>> queuesMember;
 
     @JsonbProperty("swap_requests_in")
     @JsonProperty("swap_requests_in")
@@ -46,24 +48,29 @@ public class UserInfo implements Serializable {
         if (contactDetails.getImg() == null) contactDetails.setImg("https://imgur.com/giuTlrm");
     }
     private void initQueues(User user){
-        Set<String[]> AllList = new HashSet<>();
-        Set<String[]> memberList = new HashSet<>();
+        Set<Map<String, String>> allList = new HashSet<>();
+        Set<Map<String, String>> memberList = new HashSet<>();
         Set<Queue> memberSet = new HashSet<>(user.getQueueMember());
         Set<Queue> superSet = new HashSet<>(user.getQueueSuper());
         for (Queue q: memberSet
         ) {
-            memberList.add(new String[]{q.getName(), q.getFullname()});
-            AllList.add(new String[]{q.getName(), q.getFullname()});
-
+            Map<String, String > jsonObj = new HashMap<>();
+            jsonObj.put("short_name", q.getName());
+            jsonObj.put("fullname", q.getFullname());
+            memberList.add(jsonObj);
+            allList.add(jsonObj);
             // adding list of swap requests
             addSwapRequest(q, user);
         }
         superSet.removeAll(memberSet);
         for (Queue q: superSet
              ) {
-            AllList.add(new String[]{q.getName(), q.getFullname()});
+            Map<String, String > jsonObj = new HashMap<>();
+            jsonObj.put("short_name", q.getName());
+            jsonObj.put("fullname", q.getFullname());
+            allList.add(jsonObj);
         }
-        this.queues = new ArrayList<>(AllList);
+        this.queues = new ArrayList<>(allList);
         this.queuesMember = new ArrayList<>(memberList);
     }
 
@@ -96,7 +103,7 @@ public class UserInfo implements Serializable {
         return user;
     }
 
-    public List<String[]> getQueues() {
+    public List<Map<String, String>> getQueues() {
         return queues;
     }
 }
