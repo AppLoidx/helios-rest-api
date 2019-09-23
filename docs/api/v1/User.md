@@ -26,20 +26,16 @@
 ```json
 {
    "queues":[
-      [
-         "short-name",
-         "Full Name of Queue"
-      ]
+      {
+         "short_name":"123",
+         "fullname":"123"
+      }
    ],
    "queues_member":[
-      [
-         "short-name",
-         "Full Name of Queue"
-      ],
-      [
-         "queue-2",
-         "Only membered Queue (without admin)"
-      ] 
+      {
+         "short_name":"123",
+         "fullname":"123"
+      }
    ],
    "swap_requests_in":[
       {
