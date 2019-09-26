@@ -7,9 +7,9 @@
 
 
 
-## Author
+## 🙂Author
 
-🙂 **Arthur Kupriyanov**
+**Arthur Kupriyanov**
 
 - VK: [@apploidxxx](https://vk.com/apploidxxx)
 - Github: [@AppLoidx](https://github.com/AppLoidx)
