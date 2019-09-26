@@ -5,11 +5,21 @@
   <img src="https://img.shields.io/badge/Java-1.8-brightgreen" />
 </h1>
 
-**API docs v1** : [Documentation](https://apploidx.github.io/helios-doc/)
 
-# Документация к API Helios
+
+## Author
+
+🙂 **Arthur Kupriyanov**
+
+- VK: [@apploidxxx](https://vk.com/apploidxxx)
+- Github: [@AppLoidx](https://github.com/AppLoidx)
+- Mail: [apploidyakutsk@gmail.com](apploidyakutsk@gmail.com)
+
+# 📙Документация к API Helios
 
 <h2 align=center><img src="https://i.imgur.com/LCermq5.png" width=170 height=170 /></h2>
+
+**API docs v1** : [Веб-версия](https://apploidx.github.io/helios-doc/) идентичная с README.md
 
 ## Запуск
 Перед запуском необходимо настроить `hiberante.cfg.xml`
