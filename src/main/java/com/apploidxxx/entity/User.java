@@ -32,10 +32,11 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.contactDetails = new ContactDetails();
     }
     public User(String username, String password, String firstName, String lastName, String email){
         this(username, password, firstName, lastName);
-        this.contactDetails = new ContactDetails(this, email);
+        this.contactDetails.setEmail(email);
     }
     public User(String username, String password, String firstName, String lastName, String email, String group){
         this(username, password, firstName, lastName, email);
