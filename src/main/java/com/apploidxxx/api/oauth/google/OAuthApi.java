@@ -1,5 +1,11 @@
-package com.apploidxxx.api.google;
+package com.apploidxxx.api.oauth.google;
 
+import com.apploidxxx.api.exceptions.UserNotFoundException;
+import com.apploidxxx.entity.AuthorizationCode;
+import com.apploidxxx.entity.User;
+import com.apploidxxx.entity.dao.oauth.AuthorizationCodeService;
+import com.apploidxxx.entity.dao.user.ContactDetailsService;
+import com.apploidxxx.entity.dao.user.UserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -14,6 +20,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Arthur Kupriyanov
@@ -28,8 +36,8 @@ public class OAuthApi {
         if (requestedWith == null) {
             return Response.status(400).build();
         }
-
-        String REDIRECT_URI = "http://localhost:3000";
+        // TODO : redirect uri
+        String REDIRECT_URI = "https://helios-service.herokuapp.com";
 
         GoogleClientSecrets clientSecrets =
                 GoogleClientSecrets.load(
@@ -47,39 +55,32 @@ public class OAuthApi {
 
         GoogleIdToken idToken = tokenResponse.parseIdToken();
         GoogleIdToken.Payload payload = idToken.getPayload();
-        String userId = payload.getSubject();  // Use this value as a key to identify a user.
         String email = payload.getEmail();
-        boolean emailVerified = payload.getEmailVerified();
-        String name = (String) payload.get("name");
         String pictureUrl = (String) payload.get("picture");
-        String locale = (String) payload.get("locale");
         String familyName = (String) payload.get("family_name");
         String givenName = (String) payload.get("given_name");
-//        User user;
-//        try {
-//            user = ContactDetailsService.findByEmail(email).getUser();
-//        } catch (UserNotFoundException e) {
-//            Map<String, String> map = new HashMap<>();
-//            map.put("email", email);
-//            return Response.status(Response.Status.UNAUTHORIZED).entity(map).build();
-//        }
 
-        System.out.println(userId);
-        System.out.println(email);
-        System.out.println(emailVerified);
-        System.out.println(name);
-        System.out.println(pictureUrl);
-        System.out.println(locale);
-        System.out.println(familyName);
-        System.out.println(givenName);
+        try {
+            User user = ContactDetailsService.findByEmail(email).getUser();
+            return Response.ok(createAuthorizationCodeAndGetMap(user)).build();
+        } catch (UserNotFoundException e) {
 
-        System.out.println(
-                "Your email" + email + "\n"
-                + "Your username : " + email.split("@")[0] + ""
-                + "Your fullname : " + name + " " + familyName + "\n"
-                + "Your image : " + pictureUrl
-        );
+            User user = new User(email, null, givenName, familyName, email);
+            user.getContactDetails().setImg(pictureUrl);
+            UserService.saveUser(user);
 
-        return Response.ok().build();
+            return Response.ok(createAuthorizationCodeAndGetMap(user)).build();
+        }
+
+    }
+
+
+    private Map<String, String> createAuthorizationCodeAndGetMap(User user){
+        AuthorizationCode authorizationCode = new AuthorizationCode(user);
+        AuthorizationCodeService.save(authorizationCode);
+        Map<String, String> authCodeMap = new HashMap<>();
+        authCodeMap.put("authorization_code", authorizationCode.getAuthCode());
+
+        return authCodeMap;
     }
 }

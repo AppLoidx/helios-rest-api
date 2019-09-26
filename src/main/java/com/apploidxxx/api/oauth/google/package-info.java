@@ -3,4 +3,4 @@
  *
  * @author Arthur Kupriyanov
  */
-package com.apploidxxx.api.google;
+package com.apploidxxx.api.oauth.google;
