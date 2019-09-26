@@ -15,9 +15,9 @@ public class QueueTest {
 
     @Test
     public void swap() {
-        Queue queue = new Queue("", "");
-        User user1 = new User("u1", "", "", "");
-        User user2 = new User("u2", "", "", "");
+        Queue queue = new Queue("name", "name");
+        User user1 = new User("u1", "123123123", "", "", "");
+        User user2 = new User("u2", "123123123", "", "", "");
 
         user1.setId(100L);
         user2.setId(200L);

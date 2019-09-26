@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
  * @author Arthur Kupriyanov
  */
 public class ContactDetailsServiceTest {
-    private final User user = new User("123", "123", "123", "123");
+    private final User user = new User("123", "123", "123", "123", "");
     @Before
     public void setUp() throws Exception {
 
