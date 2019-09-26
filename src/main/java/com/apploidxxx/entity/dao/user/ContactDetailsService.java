@@ -17,4 +17,12 @@ public class ContactDetailsService {
             return data;
         }
     }
+    public static ContactDetails findByVkId(String vkId) throws UserNotFoundException {
+        ContactDetails data = contactDetailsDAO.findByVkId(vkId);
+        if (data == null){
+            throw new UserNotFoundException();
+        } else {
+            return data;
+        }
+    }
 }
