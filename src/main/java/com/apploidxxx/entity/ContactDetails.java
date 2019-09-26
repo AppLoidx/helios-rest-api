@@ -1,10 +1,12 @@
 package com.apploidxxx.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
@@ -47,9 +49,11 @@ public class ContactDetails {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "contactDetails")
     private User user;
 
-    @Column
+    @Column(unique = true, nullable = true)
     private String email;
 
-    @Column
-    private long vkontakteId;
+    @Column(unique = true)
+    @JsonProperty("vkontakte_id")
+    @JsonbProperty("vkontakte_id")
+    private Long vkontakteId;
 }
