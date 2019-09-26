@@ -1,13 +1,12 @@
 package com.apploidxxx.api;
 
 import com.apploidxxx.Main;
+import com.apploidxxx.api.exceptions.UserNotFoundException;
 import com.apploidxxx.api.exceptions.VulnerabilityException;
 import com.apploidxxx.api.model.ErrorMessage;
-import com.apploidxxx.api.util.ErrorResponseFactory;
-import com.apploidxxx.api.util.GroupChecker;
-import com.apploidxxx.api.util.Password;
-import com.apploidxxx.api.util.VulnerabilityChecker;
+import com.apploidxxx.api.util.*;
 import com.apploidxxx.entity.User;
+import com.apploidxxx.entity.dao.user.ContactDetailsService;
 import com.apploidxxx.entity.dao.user.UserService;
 import org.jboss.logging.Logger;
 
@@ -33,6 +32,7 @@ public class RegisterApi {
                              @Valid@NotNull@QueryParam("last_name") String lastName,
                              @Valid@NotNull@QueryParam("email") String email,
                              @Valid@QueryParam("group") String group){
+
         logger.debug(String.format("Params \nusername: %s,\npassword: %s, \nfirst_name: %s,\nlast_name: %s\nemail: %s,\ngroup: %s",
                 username, password, firstName, lastName, email, group));
 
@@ -67,23 +67,13 @@ public class RegisterApi {
         logger.debug("Checking params vulnerabilities");
 
         try {
-            VulnerabilityChecker.checkWord(firstName);
-            VulnerabilityChecker.checkWord(lastName);
-            VulnerabilityChecker.checkWord(username);
-            if (group != null) VulnerabilityChecker.checkWord(group);
+            checkVulnerability(firstName, lastName, username, group);
         } catch (VulnerabilityException e) {
-            logger.debug("Founded exception", e);
             return e.getResponse();
         }
 
-        if (UserService.findByName(username)==null){
-            logger.debug("Saving new user");
-            UserService.saveUser(new User(username, Password.hash(password), firstName, lastName, email, group));
-            return Response.ok().build();
-        }
-        else {
-            return ErrorResponseFactory.getInvalidParamErrorResponse("This username already is taken");
-        }
+        return saveNewUser(username, Password.hash(password), firstName, lastName, email, group);
+
     }
 
     @DELETE
@@ -99,6 +89,45 @@ public class RegisterApi {
                     .status(Response.Status.BAD_REQUEST)
                     .entity(new ErrorMessage("invalid_credentials", "invalid username or password"))
                     .build();
+        }
+    }
+
+    private Response saveNewUser(String username, String password, String firstName, String lastName, String email, String group){
+        boolean usernameExist = usernameExist(username);
+        boolean emailExist = emailExist(email);
+
+        if (!usernameExist && !emailExist){
+            logger.debug("Saving new user");
+            UserService.saveUser(new User(username, Password.hash(password), firstName, lastName, email, group));
+            return Response.ok().build();
+        }
+        else {
+            if (usernameExist) return ErrorResponseFactory.getInvalidParamErrorResponse("This username already is taken");
+            else return ErrorResponseFactory.getInvalidParamErrorResponse("This email already is taken");
+        }
+    }
+
+    private boolean usernameExist(String username) {
+        try {
+            UserManager.getUserByName(username);
+            return true;
+        } catch (UserNotFoundException e) {
+            return false;
+        }
+    }
+
+    private boolean emailExist(String email){
+        try {
+            ContactDetailsService.findByEmail(email);
+            return true;
+        } catch (UserNotFoundException e) {
+            return false;
+        }
+    }
+
+    private void checkVulnerability(String ... args) throws VulnerabilityException {
+        for (String word : args){
+            VulnerabilityChecker.checkWord(word);
         }
     }
 }

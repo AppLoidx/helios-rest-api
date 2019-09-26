@@ -7,7 +7,6 @@ import com.apploidxxx.entity.AuthorizationCode;
 import com.apploidxxx.entity.Session;
 import com.apploidxxx.entity.User;
 import com.apploidxxx.entity.dao.oauth.AuthorizationCodeService;
-import com.apploidxxx.entity.dao.user.SessionService;
 import com.apploidxxx.entity.dao.user.UserService;
 
 import javax.validation.constraints.NotNull;
@@ -76,19 +75,13 @@ public class AuthApi {
     }
 
     private Session setUserSession(User user) {
-        SessionService ss = new SessionService();
 
         Session s;
-        if (user.getSession()!=null){
-            s = user.getSession();
-            s.generateSession(user);
-            ss.updateSession(s);
-        } else {
-            s = new Session();
-            s.generateSession(user);
-            UserService.updateUser(user);
-        }
+        if (user.getSession()!=null) s = user.getSession();
+        else s = new Session();
 
+        s.generateSession(user);
+        UserService.updateUser(user);
         return s;
     }
 }
