@@ -21,4 +21,12 @@ class ContactDetailsDAO {
             return null;
         }
     }
+    public ContactDetails findByVkId(String vkid){
+        try (Session session =  HibernateSessionFactoryUtil.getSessionFactory().openSession()
+        ){
+            return session.createQuery("from ContactDetails where vkontakteId='" + vkid + "'", ContactDetails.class).getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
 }
