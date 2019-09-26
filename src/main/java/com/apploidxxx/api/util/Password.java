@@ -22,12 +22,14 @@ public class Password {
     }
 
     /**
-     * Проверка равенства паролей
+     * Проверка равенства паролей.
+     * Если хотя бы один из null возвращается false
      * @param rawPassword проверяемый пароль
      * @param hashedPassword исходный захишированный пароль
      * @return <code>true</code>, если пароли совпадают, иначе <code>false</code>
      */
     public static boolean isEqual(String rawPassword, String hashedPassword){
+        if (rawPassword == null || hashedPassword == null) return false;
         return hashedPassword.equals(hash(rawPassword, hashedPassword));
     }
     private static String hash(String password, String anotherEncryptedPassword){
