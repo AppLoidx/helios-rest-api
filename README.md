@@ -19,6 +19,7 @@
 
 <h2 align=center><img src="https://i.imgur.com/LCermq5.png" width=170 height=170 /></h2>
 
+Актуально для ветки в стеке Java EE : https://github.com/AppLoidx/helios-rest-api/tree/java-ee-1.9.0 <br/>
 **API docs v1** : [Веб-версия](https://apploidx.github.io/helios-doc/) идентичная с README.md
 
 ## Запуск
