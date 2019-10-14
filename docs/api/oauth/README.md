@@ -5,7 +5,7 @@
 ## Получение `authorization_code`
 Для начала вам необходимо перенаправить браузер пользователя по адресу:
 ```text
-https://helios-service.herokuapp.com/html/external/login.html?redirect_uri=<YOUR_VALUE>&state=<YOUR_STATE>
+https://helios-service.herokuapp.com/auth/login.html?redirect_uri=<YOUR_VALUE>&state=<YOUR_STATE>
 ```
 
 где вместо `<YOUR_VALUE>` вы должны поставить страницу, на которую будет перенаправлен пользователь с 
